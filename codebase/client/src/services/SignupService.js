@@ -1,19 +1,16 @@
 import config from "../environments/main";
 import fetchError from "../helper/customException";
 
-export default async function LoginService(data) {
-  console.log("login data", data);
+export default async function SignupService(data) {
   try {
     const response = await fetch(
-      config.baseUrl + "api/v1/auth",
+      config.baseUrl + "api/v1/user",
       {
         method: "POST",
         headers: {
           Accept: "application/json",
-          "Content-Type": "application/json",
-          authorization: `bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify(data),
+        body: data,
       },
       2 * 10 * 60 * 1000
     );
