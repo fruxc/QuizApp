@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import Login from "./components/login/Login";
-import SignUp from "./components/signup/signup"
+import SignUp from "./components/signup/signup";
 import Dashboard from "./components/dashboard/Dashboard";
 import ErrorBoundary from "./helper/Error";
 

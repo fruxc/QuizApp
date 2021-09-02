@@ -12,7 +12,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import LoginService from '../../services/LoginService';
+import LoginService from "../../services/LoginService";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -41,26 +41,24 @@ export default function Login() {
   const password = React.useRef(null);
   const rememberMe = React.useRef(null);
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
       email: email.current.value,
       password: password.current.value,
       rememberMe: rememberMe.current.checked,
-    }
+    };
     let response;
-    try{
-        response = await LoginService(data);
-        if(response.success && response.data.token){
+    try {
+      response = await LoginService(data);
+      if (response.success && response.data.token) {
         const token = response.data.token;
         localStorage.setItem("token", token);
-        
-        } 
-    } catch(err){
-        console.log("Show error/ error handling")
+      }
+    } catch (err) {
+      console.log("Show error/ error handling");
     }
   };
-  
 
   return (
     <Container component="main" maxWidth="xs">
@@ -84,7 +82,6 @@ export default function Login() {
             autoComplete="email"
             autoFocus
             inputRef={email}
-            
           />
           <TextField
             inputRef={password}
