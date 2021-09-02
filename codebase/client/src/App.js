@@ -2,15 +2,16 @@ import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import Login from "./components/login/Login";
-import SignUp from "./components/signup/signup";
+import SignUp from "./components/signup/SignUp";
 import Dashboard from "./components/dashboard/Dashboard";
+import Navbar from "./components/navbar/Navbar";
 import ErrorBoundary from "./helper/Error";
 
 export default function App() {
   return (
     <div>
       <BrowserRouter>
-        {/* <Navbar></Navbar> */}
+        <Navbar />
         <ErrorBoundary>
           <Switch>
             <Route exact path="/login" component={Login} />
