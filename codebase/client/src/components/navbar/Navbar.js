@@ -41,8 +41,8 @@ const Navbar = () => {
         <Typography variant="h6" className={classes.title}>
           Quiz App
         </Typography>
+        <Button color="inherit">Add Quiz</Button>
         <Button color="inherit">Login</Button>
-        <Button color="inherit">User</Button>
         <Button color="inherit">Sign Up</Button>
         <div>
           {user && (
