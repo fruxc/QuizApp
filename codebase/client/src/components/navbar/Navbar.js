@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
+  accountCircle: {
+    paddingRight: "5px",
+  },
 }));
 
 const Navbar = () => {
@@ -36,7 +39,7 @@ const Navbar = () => {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
-          Title
+          Quiz App
         </Typography>
         <Button color="inherit">Login</Button>
         <Button color="inherit">User</Button>
@@ -51,8 +54,8 @@ const Navbar = () => {
                 onClick={handleMenu}
                 color="inherit"
               >
-                <AccountCircle />
-                {user.name}
+                <AccountCircle className={classes.accountCircle} />
+                <Typography>Hammad</Typography>
               </IconButton>
               <Menu
                 id="menu-appbar"
