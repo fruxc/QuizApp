@@ -46,10 +46,13 @@ export default function Dashboard() {
   return (
     <div className={classes.quiz}>
       <Container component="section" maxWidth="lg" className={classes.root}>
-        <Grid container spacing={2} justify="center" direction="row">
+        <Grid container spacing={2} justifyContent="center" direction="row">
           <Grid item xs={12} sm={4}>
             <Card>
-              <CardMedia className={classes.media} />
+              <CardMedia
+                className={classes.media}
+                image="/static/images/cards/paella.jpg"
+              />
               <CardContent>
                 <Typography
                   variant="h5"
@@ -64,7 +67,10 @@ export default function Dashboard() {
           </Grid>
           <Grid item xs={12} sm={4}>
             <Card>
-              <CardMedia className={classes.media} />
+              <CardMedia
+                className={classes.media}
+                image="/static/images/cards/paella.jpg"
+              />
               <CardContent>
                 <Typography
                   variant="h5"
@@ -79,7 +85,10 @@ export default function Dashboard() {
           </Grid>
           <Grid item xs={12} sm={4}>
             <Card>
-              <CardMedia className={classes.media} />
+              <CardMedia
+                className={classes.media}
+                image="/static/images/cards/paella.jpg"
+              />
               <CardContent>
                 <Typography
                   variant="h5"

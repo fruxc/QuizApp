@@ -12,7 +12,7 @@ import {
   Input,
 } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import SignupService from "../../services/SignupService";
+import SignUpService from "../../services/SignupService";
 import LoginService from "../../services/LoginService";
 import { useHistory } from "react-router-dom";
 
@@ -44,7 +44,7 @@ const SignUp = () => {
   const phoneNumber = React.useRef(null);
   const password = React.useRef(null);
   const confirmPassword = React.useRef(null);
-  const [file, setFile] = React.useState(null);
+  // const [file, setFile] = React.useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,27 +53,32 @@ const SignUp = () => {
       return;
     }
 
-    const data = new FormData();
-    data.append("email", email.current.value);
-    data.append("password", password.current.value);
-    data.append("name", name.current.value);
-    data.append("phone", phoneNumber.current.value);
+    // const data = new FormData();
+    // data.append("email", email.current.value);
+    // data.append("password", password.current.value);
+    // data.append("name", name.current.value);
+    // data.append("phone", phoneNumber.current.value);
 
-    if (file) {
-      data.append("profile_picture", file);
-    }
+    const data = {
+      name: name.current.value,
+      email: email.current.value,
+      password: password.current.value,
+    };
+    // if (file) {
+    //   data.append("profile_picture", file);
+    // }
     let response;
     try {
-      response = await SignupService(data);
+      response = await SignUpService(data);
+      console.log(response);
       if (response.success) {
         const loginData = {
           email: email.current.value,
           password: password.current.value,
         };
-        console.log(loginData);
         response = await LoginService(loginData);
-        if (response.success && response.data.token) {
-          const token = response.data.token;
+        if (response.success && response.token) {
+          const token = response.token;
           localStorage.setItem("token", token);
           window.location.href = "/";
         }
@@ -158,13 +163,13 @@ const SignUp = () => {
             id="confirmPassword"
             autoComplete="current-password"
           />
-          Profile Picture
+          {/* Profile Picture
           <Input
             type="file"
             onChange={(e) => setFile(e.target.files[0])}
             fullWidth
             variant="outlined"
-          />
+          /> */}
           <Button
             type="submit"
             fullWidth

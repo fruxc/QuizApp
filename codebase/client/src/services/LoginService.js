@@ -2,10 +2,9 @@ import config from "../environments/main";
 import fetchError from "../helper/customException";
 
 export default async function LoginService(data) {
-  console.log("login data", data);
   try {
     const response = await fetch(
-      config.baseUrl + "api/v1/auth",
+      config.baseUrl + "api/user/login",
       {
         method: "POST",
         headers: {

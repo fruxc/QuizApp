@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import AccountCircle from "@material-ui/icons/AccountCircle";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -35,6 +36,14 @@ const Navbar = () => {
     setAnchorEl(null);
   };
 
+  const handleLogout = () => {
+    try {
+      localStorage.removeItem("token");
+      console.log("User logged out");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <AppBar position="static">
       <Toolbar>
@@ -42,8 +51,12 @@ const Navbar = () => {
           Quiz App
         </Typography>
         <Button color="inherit">Add Quiz</Button>
-        <Button color="inherit">Login</Button>
-        <Button color="inherit">Sign Up</Button>
+        <Button color="inherit" component={Link} to={"/login"}>
+          Login
+        </Button>
+        <Button color="inherit" component={Link} to={"/signup"}>
+          Sign Up
+        </Button>
         <div>
           {user && (
             <div>
@@ -74,7 +87,7 @@ const Navbar = () => {
               >
                 <MenuItem>My Profile</MenuItem>
                 <MenuItem>My Quizzes</MenuItem>
-                <MenuItem>Logout</MenuItem>
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </div>
           )}

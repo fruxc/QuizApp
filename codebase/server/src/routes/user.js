@@ -24,7 +24,7 @@ router.route("/add").post(async (req, res) => {
     const newuser = new user({ name, email, password });
     newuser
       .save()
-      .then(() => res.send("user added!"))
+      .then(() => res.send({ message: "User has been added!", success: true }))
       .catch((err) => res.status(400).json("error : " + err));
   } catch (err) {
     return res.status(400).send();
@@ -48,7 +48,9 @@ router.route("/login").post(async (req, res) => {
       { id: doc._id, email: doc.email },
       process.env.ACCESS_TOKEN_SECRET
     );
-    return res.status(200).send({ role: doc.role,token:token });
+    return res
+      .status(200)
+      .send({ role: doc.role, token: token, success: true });
   }
 });
 

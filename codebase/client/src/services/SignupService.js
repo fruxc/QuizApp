@@ -1,16 +1,17 @@
 import config from "../environments/main";
 import fetchError from "../helper/customException";
 
-export default async function SignupService(data) {
+export default async function SignUpService(data) {
   try {
     const response = await fetch(
-      config.baseUrl + "api/v1/user",
+      config.baseUrl + "api/user/add",
       {
         method: "POST",
         headers: {
           Accept: "application/json",
+          "Content-Type": "application/json",
         },
-        body: data,
+        body: JSON.stringify(data),
       },
       2 * 10 * 60 * 1000
     );

@@ -51,9 +51,10 @@ export default function Login() {
     let response;
     try {
       response = await LoginService(data);
-      if (response.success && response.data.token) {
-        const token = response.data.token;
-        localStorage.setItem("token", token);
+      console.log(response);
+      if (response.success && response.token) {
+        localStorage.setItem("token", response.token);
+        window.location.href = "/";
       }
     } catch (err) {
       console.log("Show error/ error handling");
