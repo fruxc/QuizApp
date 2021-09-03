@@ -71,7 +71,7 @@ export default function Login() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form key={"haha"} className={classes.form} onSubmit={handleSubmit}>
+        <form key={"x"} className={classes.form} onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -113,7 +113,7 @@ export default function Login() {
 
           <Grid container>
             <Grid item xs>
-              <Link href="changepassword" variant="body2">
+              <Link href="changePassword" variant="body2">
                 Forgot password?
               </Link>
             </Grid>

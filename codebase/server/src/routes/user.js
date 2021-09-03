@@ -21,8 +21,8 @@ router.route("/add").post(async (req, res) => {
       return res.status(400).send({ message: "Account already exists!" });
     }
 
-    const newuser = new user({ name, email, password });
-    newuser
+    const newUser = new user({ name, email, password });
+    newUser
       .save()
       .then(() => res.send({ message: "User has been added!", success: true }))
       .catch((err) => res.status(400).json("error : " + err));

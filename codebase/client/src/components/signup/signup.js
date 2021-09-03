@@ -9,7 +9,7 @@ import {
   Typography,
   makeStyles,
   Container,
-  Input,
+  // Input,
 } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import SignUpService from "../../services/SignupService";
@@ -99,7 +99,7 @@ const SignUp = () => {
         <Typography component="h1" variant="h5">
           Sign Up
         </Typography>
-        <form key={"haha"} className={classes.form} onSubmit={handleSubmit}>
+        <form key={"x"} className={classes.form} onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
