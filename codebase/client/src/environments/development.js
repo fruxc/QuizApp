@@ -1,4 +1,4 @@
-let baseUrl = "http://localhost:3001/";
+let baseUrl = "http://localhost:5000/";
 
 let updatedConfig = {
   baseUrl: baseUrl,
