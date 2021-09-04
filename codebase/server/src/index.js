@@ -21,7 +21,9 @@ mongoose.connection.once("open", () => {
   console.log("connection established successfully");
 });
 
-const userRouter = require("./routes/user");
-app.use("/api/user", userRouter);
+const userRouter = require("./routes/v1/user");
+const quizRouter = require("./routes/v1/quizes");
+app.use("/api/v1/user", userRouter);
+app.use("/api/v1/quizes", quizRouter);
 
 app.listen(port, console.log(`listing at port ${port}`));
