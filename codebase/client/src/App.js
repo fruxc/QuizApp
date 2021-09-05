@@ -7,7 +7,7 @@ import Dashboard from "./components/dashboard/Dashboard";
 import Navbar from "./components/navbar/Navbar";
 import Quiz from "./components/quiz/Quiz";
 import ErrorBoundary from "./helper/Error";
-import CreateQuiz from "./components/create-quiz/CreateQuiz";
+import CreateQuiz from "./components/quiz/create-quiz/CreateQuiz";
 import { getUser } from "./services/UserService";
 import { ToastContainer } from "react-toastify";
 
@@ -51,7 +51,7 @@ const App = () => {
             {userAuthenticated ? (
               <Switch>
                 <Route exact path="/quiz" component={Quiz} />
-            <Route exact path="/add-quiz" component={CreateQuiz} />
+                <Route exact path="/add-quiz" component={CreateQuiz} />
               </Switch>
             ) : (
               <Switch>

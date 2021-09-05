@@ -51,7 +51,9 @@ const Navbar = ({ user, authState }) => {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
-          Quiz App
+          <a component={Link} to={"/add-quiz"}>
+            Quiz App
+          </a>
         </Typography>
         {!user && (
           <div>
