@@ -8,6 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
 import CardActions from "@material-ui/core/CardActions";
+import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { getQuizzes } from "../../services/QuizService";
 
@@ -135,7 +136,13 @@ export default function Dashboard({ user, authenticated }) {
             ))}
           {user && authenticated && user.role === "admin" && (
             <Grid item xs={12} sm={4} className={classes.grid}>
-              <Button color="primary" size="large" variant="contained">
+              <Button
+                color="primary"
+                size="large"
+                variant="contained"
+                component={Link}
+                to={"/add-quiz"}
+              >
                 <AddIcon />
               </Button>
             </Grid>

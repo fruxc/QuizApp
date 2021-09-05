@@ -1,16 +1,14 @@
 import React from "react";
-// import { Redirect } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import CreateIcon from '@material-ui/icons/Create';
+import CreateIcon from "@material-ui/icons/Create";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import InputAdornment from '@material-ui/core/InputAdornment';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import LoginService from "../../services/LoginService";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import AccessTimeIcon from "@material-ui/icons/AccessTime";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -116,14 +114,14 @@ export default function CrateQuiz() {
             id="duration"
             autoComplete="duration"
             InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <AccessTimeIcon />
-                  </InputAdornment>
-                ),
-              }}
+              startAdornment: (
+                <InputAdornment position="start">
+                  <AccessTimeIcon />
+                </InputAdornment>
+              ),
+            }}
           />
-          
+
           <Button
             type="submit"
             fullWidth
@@ -133,7 +131,6 @@ export default function CrateQuiz() {
           >
             Add Questions
           </Button>
-
         </form>
       </div>
     </Container>
