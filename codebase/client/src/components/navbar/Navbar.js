@@ -50,7 +50,8 @@ const Navbar = () => {
         <Typography variant="h6" className={classes.title}>
           Quiz App
         </Typography>
-        <Button color="inherit">Add Quiz</Button>
+        <Button color="inherit" component={Link} to={"/add-quiz"}>
+          Add Quiz</Button>
         <Button color="inherit" component={Link} to={"/login"}>
           Login
         </Button>

@@ -6,6 +6,7 @@ import SignUp from "./components/signup/SignUp";
 import Dashboard from "./components/dashboard/Dashboard";
 import Navbar from "./components/navbar/Navbar";
 import ErrorBoundary from "./helper/Error";
+import CreateQuiz from "./components/create-quiz/CreateQuiz";
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/" component={Dashboard} />
+            <Route exact path="/add-quiz" component={CreateQuiz} />
             <Route exact path="*" component={Dashboard} />
           </Switch>
         </ErrorBoundary>
