@@ -13,6 +13,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import LoginService from "../../services/LoginService";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -51,13 +53,14 @@ export default function Login() {
     let response;
     try {
       response = await LoginService(data);
-      console.log(response);
-      if (response.success && response.token) {
-        localStorage.setItem("token", response.token);
+      if (response.success && response.message.token) {
+        localStorage.setItem("token", response.message.token);
         window.location.href = "/";
+        toast("User has been logged in successfully!");
       }
     } catch (err) {
-      console.log("Show error/ error handling");
+      console.log(err);
+      toast(err.message);
     }
   };
 

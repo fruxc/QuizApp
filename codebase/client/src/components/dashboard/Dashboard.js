@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
+import AddIcon from "@material-ui/icons/Add";
+import Button from "@material-ui/core/Button";
+import CardActions from "@material-ui/core/CardActions";
+import { useHistory } from "react-router-dom";
+import { getQuizzes } from "../../services/QuizService";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,69 +42,104 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: "56.25%", // 16:9,
     marginTop: "30",
   },
+  grid: {
+    height: "100%",
+    paddingTop: 5,
+    textAlign: "center",
+    alignItems: "stretch",
+    gridRow: "auto / span 2",
+  },
+  cardActions: {
+    textAlign: "center",
+    justifyContent: "center",
+  },
 }));
 
-export default function Dashboard() {
+export default function Dashboard({ user, authenticated }) {
   const classes = useStyles();
+  const history = useHistory();
+  const [quizzes, setQuizzes] = useState(null);
+
+  const handleAttemptQuiz = () => {
+    history.push("quiz");
+  };
+
+  useEffect(() => {
+    getQuizData();
+  }, []);
+  const getQuizData = async () => {
+    const response = await getQuizzes();
+    setQuizzes(response.message);
+  };
 
   return (
     <div className={classes.quiz}>
       <Container component="section" maxWidth="lg" className={classes.root}>
-        <Grid container spacing={2} justifyContent="center" direction="row">
-          <Grid item xs={12} sm={4}>
-            <Card>
-              <CardMedia
-                className={classes.media}
-                image="/static/images/cards/paella.jpg"
-              />
-              <CardContent>
-                <Typography
-                  variant="h5"
-                  component="h3"
-                  className={classes.title}
-                >
-                  HTML
-                </Typography>
-                <Typography className={classes.featureList}>Feature</Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <Card>
-              <CardMedia
-                className={classes.media}
-                image="/static/images/cards/paella.jpg"
-              />
-              <CardContent>
-                <Typography
-                  variant="h5"
-                  component="h3"
-                  className={classes.title}
-                >
-                  CSS
-                </Typography>
-                <Typography className={classes.featureList}>Feature</Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <Card>
-              <CardMedia
-                className={classes.media}
-                image="/static/images/cards/paella.jpg"
-              />
-              <CardContent>
-                <Typography
-                  variant="h5"
-                  component="h3"
-                  className={classes.title}
-                >
-                  JavaScript
-                </Typography>
-                <Typography className={classes.featureList}>Feature</Typography>
-              </CardContent>
-            </Card>
-          </Grid>
+        <Grid
+          container
+          spacing={2}
+          direction="row"
+          alignItems="center"
+          justifyContent="center"
+        >
+          {quizzes !== null &&
+            quizzes.map((quiz) => (
+              <Grid item xs={12} sm={4} className={classes.grid} key={quiz._id}>
+                <Card>
+                  <CardContent>
+                    <Typography
+                      variant="h5"
+                      component="h3"
+                      className={classes.title}
+                    >
+                      {quiz.title}
+                    </Typography>
+                    <Typography className={classes.featureList}>
+                      {quiz.description}
+                    </Typography>
+                  </CardContent>
+                  {user && authenticated ? (
+                    <CardActions className={classes.cardActions}>
+                      <Button
+                        color="primary"
+                        size="large"
+                        variant="contained"
+                        onClick={handleAttemptQuiz}
+                      >
+                        Attempt Quiz
+                      </Button>
+                    </CardActions>
+                  ) : (
+                    <CardActions className={classes.cardActions}>
+                      <Typography className={classes.featureList}>
+                        Please login or sign up to attempt quiz
+                      </Typography>
+                    </CardActions>
+                  )}
+                  {user && authenticated && user.role === "admin" && (
+                    <CardActions className={classes.cardActions}>
+                      <Button color="primary" size="large" variant="contained">
+                        Edit
+                      </Button>
+                      <Button
+                        color="secondary"
+                        size="large"
+                        variant="contained"
+                      >
+                        Delete
+                      </Button>
+                    </CardActions>
+                  )}
+                </Card>
+              </Grid>
+            ))}
+          {user && authenticated && user.role === "admin" && (
+            <Grid item xs={12} sm={4} className={classes.grid}>
+              <Button color="primary" size="large" variant="contained">
+                <AddIcon />
+              </Button>
+            </Grid>
+          )}
         </Grid>
       </Container>
     </div>

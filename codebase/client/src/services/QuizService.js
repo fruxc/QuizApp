@@ -1,17 +1,17 @@
 import config from "../environments/main";
 import fetchError from "../helper/customException";
 
-export default async function SignUpService(data) {
+const getQuizzes = async () => {
   try {
     const response = await fetch(
-      config.baseUrl + "api/v1/user/add",
+      config.baseUrl + "api/v1/quizes",
       {
-        method: "POST",
+        method: "get",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          authorization: `bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify(data),
       },
       2 * 10 * 60 * 1000
     );
@@ -28,4 +28,5 @@ export default async function SignUpService(data) {
       throw new Error(err);
     }
   }
-}
+};
+export { getQuizzes };
