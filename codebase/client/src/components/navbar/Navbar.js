@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+    cursor: "pointer",
   },
   accountCircle: {
     paddingRight: "5px",
@@ -50,10 +51,14 @@ const Navbar = ({ user, authState }) => {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography variant="h6" className={classes.title}>
-          <a component={Link} to={"/add-quiz"}>
-            Quiz App
-          </a>
+        <Typography
+          variant="h6"
+          className={classes.title}
+          onClick={() => {
+            window.location.href = "/";
+          }}
+        >
+          Quiz App
         </Typography>
         {!user && (
           <div>
