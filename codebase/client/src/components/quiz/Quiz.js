@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   window: {
     textAlign: "center",
     fontSize: `clamp(20px, 2.5vw, 24px)`,
-    marginTop: "10vh",
+    marginTop: "5vh",
   },
   question: {
     width: "70%",
@@ -95,7 +95,7 @@ const Quiz = () => {
     setTimeout(() => {
       e.target.style.backgroundColor = "#24A0ED";
       setNumber(number + 1);
-    }, 1500);
+    }, 1000);
   };
 
   useEffect(() => {
