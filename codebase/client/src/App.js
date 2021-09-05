@@ -10,6 +10,7 @@ import ErrorBoundary from "./helper/Error";
 import CreateQuiz from "./components/quiz/create-quiz/CreateQuiz";
 import { getUser } from "./services/UserService";
 import { ToastContainer } from "react-toastify";
+import "./App.css";
 
 const App = () => {
   const [userAuthenticated, setUserAuthenticated] = useState(false);
