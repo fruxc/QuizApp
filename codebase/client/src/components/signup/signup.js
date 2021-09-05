@@ -15,6 +15,8 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import SignUpService from "../../services/SignupService";
 import LoginService from "../../services/LoginService";
 import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -49,7 +51,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password.current.value !== confirmPassword.current.value) {
-      alert("Password does not match!");
+      toast("Password does not match!");
       return;
     }
 
@@ -70,22 +72,23 @@ const SignUp = () => {
     let response;
     try {
       response = await SignUpService(data);
-      console.log(response);
       if (response.success) {
+        toast("User registered successfully!");
         const loginData = {
           email: email.current.value,
           password: password.current.value,
         };
         response = await LoginService(loginData);
-        if (response.success && response.token) {
-          const token = response.token;
+        if (response.success && response.message.token) {
+          toast("User logged in successfully!");
+          const token = response.message.token;
           localStorage.setItem("token", token);
           window.location.href = "/";
         }
       }
       history.push("/");
     } catch (err) {
-      console.log("Show error/ error handling");
+      toast(err.message);
     }
   };
 

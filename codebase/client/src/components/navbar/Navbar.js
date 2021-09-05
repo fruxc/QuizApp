@@ -9,6 +9,8 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -22,9 +24,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navbar = () => {
+const Navbar = ({ user, authState }) => {
   const classes = useStyles();
-  const [user, setUser] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -39,10 +40,12 @@ const Navbar = () => {
   const handleLogout = () => {
     try {
       localStorage.removeItem("token");
-      console.log("User logged out");
-    } catch (error) {
-      console.log(error);
+      authState();
+      toast("User has been logged out successfully!");
+    } catch (err) {
+      toast(err.message);
     }
+    setAnchorEl(null);
   };
   return (
     <AppBar position="static">
@@ -50,14 +53,16 @@ const Navbar = () => {
         <Typography variant="h6" className={classes.title}>
           Quiz App
         </Typography>
-        <Button color="inherit" component={Link} to={"/add-quiz"}>
-          Add Quiz</Button>
-        <Button color="inherit" component={Link} to={"/login"}>
-          Login
-        </Button>
-        <Button color="inherit" component={Link} to={"/signup"}>
-          Sign Up
-        </Button>
+        {!user && (
+          <div>
+            <Button color="inherit" component={Link} to={"/login"}>
+              Login
+            </Button>
+            <Button color="inherit" component={Link} to={"/signup"}>
+              Sign Up
+            </Button>
+          </div>
+        )}
         <div>
           {user && (
             <div>
@@ -69,7 +74,7 @@ const Navbar = () => {
                 color="inherit"
               >
                 <AccountCircle className={classes.accountCircle} />
-                <Typography>Hammad</Typography>
+                <Typography>{user.name}</Typography>
               </IconButton>
               <Menu
                 id="menu-appbar"

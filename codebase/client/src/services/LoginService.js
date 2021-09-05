@@ -4,7 +4,7 @@ import fetchError from "../helper/customException";
 export default async function LoginService(data) {
   try {
     const response = await fetch(
-      config.baseUrl + "api/user/login",
+      config.baseUrl + "api/v1/user/login",
       {
         method: "POST",
         headers: {

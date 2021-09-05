@@ -1,28 +1,68 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import Login from "./components/login/Login";
 import SignUp from "./components/signup/SignUp";
 import Dashboard from "./components/dashboard/Dashboard";
 import Navbar from "./components/navbar/Navbar";
+import Quiz from "./components/quiz/Quiz";
 import ErrorBoundary from "./helper/Error";
 import CreateQuiz from "./components/create-quiz/CreateQuiz";
+import { getUser } from "./services/UserService";
+import { ToastContainer } from "react-toastify";
 
-export default function App() {
+const App = () => {
+  const [userAuthenticated, setUserAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    authStateChanged();
+  }, []);
+  const authStateChanged = async () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setUserAuthenticated(true);
+      const response = await getUser();
+      setUser(response.message);
+    } else {
+      setUserAuthenticated(false);
+      setUser(null);
+    }
+  };
+
   return (
     <div>
       <BrowserRouter>
-        <Navbar />
+        <Navbar user={user} authState={authStateChanged} />
+        <ToastContainer />
         <ErrorBoundary>
           <Switch>
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/signup" component={SignUp} />
-            <Route exact path="/" component={Dashboard} />
+            <Route
+              exact
+              path="/"
+              render={(props) => (
+                <Dashboard
+                  user={user}
+                  authenticated={userAuthenticated}
+                  {...props}
+                />
+              )}
+            />
+            {userAuthenticated ? (
+              <Switch>
+                <Route exact path="/quiz" component={Quiz} />
             <Route exact path="/add-quiz" component={CreateQuiz} />
-            <Route exact path="*" component={Dashboard} />
+              </Switch>
+            ) : (
+              <Switch>
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/signup" component={SignUp} />
+              </Switch>
+            )}
           </Switch>
         </ErrorBoundary>
       </BrowserRouter>
     </div>
   );
-}
+};
+export default App;

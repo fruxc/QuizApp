@@ -4,7 +4,7 @@ import fetchError from "../helper/customException";
 const getUser = async () => {
   try {
     const response = await fetch(
-      config.baseUrl + "api/v1/user",
+      config.baseUrl + "api/v1/user/myinfo",
       {
         method: "get",
         headers: {
