@@ -19,7 +19,7 @@ const questionSchema = new Schema({
     answers: [optionSchema],
 
     answer: {
-      type: Number,
+      type: String,
       required: true
     }
 
@@ -53,7 +53,7 @@ const quizSchema = new Schema({
 
     minutes : {
       type : Number,
-      default: 0
+      default: 30
     },
 
     seconds : {
@@ -66,6 +66,6 @@ const quizSchema = new Schema({
   timestamps: true
 });
 
-var Quizzes = mongoose.model('quizes', quizSchema);
+var Quizes = mongoose.model('quizes', quizSchema);
 
-module.exports = Quizzes;
+module.exports = Quizes;
