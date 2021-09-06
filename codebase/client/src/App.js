@@ -11,6 +11,7 @@ import CreateQuiz from "./components/quiz/quiz-crud/CreateQuiz";
 import { getUser } from "./services/UserService";
 import { ToastContainer } from "react-toastify";
 import "./App.css";
+import AddQuestion from "./components/quiz/question-crud/AddQuestion";
 
 const App = () => {
   const [userAuthenticated, setUserAuthenticated] = useState(false);
@@ -53,6 +54,7 @@ const App = () => {
               <Switch>
                 <Route exact path="/quiz" component={Quiz} />
                 <Route exact path="/add-quiz" component={CreateQuiz} />
+                <Route exact path="/add-question" component={AddQuestion} />
               </Switch>
             ) : (
               <Switch>
