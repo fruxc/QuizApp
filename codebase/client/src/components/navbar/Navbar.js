@@ -42,6 +42,7 @@ const Navbar = ({ user, authState }) => {
     try {
       localStorage.removeItem("token");
       authState();
+      window.location.href = "/";
       toast("User has been logged out successfully!");
     } catch (err) {
       toast(err.message);
