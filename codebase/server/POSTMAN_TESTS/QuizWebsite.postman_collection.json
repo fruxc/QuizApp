@@ -1,0 +1,569 @@
+{
+	"info": {
+		"_postman_id": "c817a156-5aff-47cb-9b5c-9df1c46d12f6",
+		"name": "QuizWebsite",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "register user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "sushantt",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "sss@gmail.commm",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "asdfgh",
+							"type": "text"
+						},
+						{
+							"key": "profile_picture",
+							"type": "file",
+							"src": "/C:/Users/Ankit/Desktop/sushant/Projects/Quantiphi/week-2/to-do/readme_resources/4.png"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/user/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login of user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \r\n    \"email\":\"sss@gmail.commm\",\r\n    \"password\":\"asdfgh\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add a quiz ",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"first  Quiz\",\r\n    \"description\":\"first quiz in database\",\r\n    \"category\":\"work\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/quizes/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"quizes",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getting quiz using quizId",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/v1/quizes/61360b6d6ccc567954b1ff70",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"quizes",
+						"61360b6d6ccc567954b1ff70"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update quiz details except questions",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\":\"second Quiz\",\r\n    \"description\":\"second quiz in database updated\",\r\n    \"category\":\"work of office\",\r\n    \"duration\":{\r\n        \"minutes\":15\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/quizes/61360b6d6ccc567954b1ff70",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"quizes",
+						"61360b6d6ccc567954b1ff70"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete quiz with quizId",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/v1/quizes/613228871853d54f433e5808",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"quizes",
+						"613228871853d54f433e5808"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "adding question to the quiz",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"question\":\"what is react\",\r\n    \"answers\":[\r\n        {\"option\":\"coding language\"},\r\n        {\"option\":\"scripting language\"},\r\n        {\"option\":\"language to make webpages \"},\r\n        {\"option\":\"None of the above\"}\r\n    ],\r\n    \"answer\":\"coding language\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/quizes/61360b6d6ccc567954b1ff70/questions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"quizes",
+						"61360b6d6ccc567954b1ff70",
+						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get question using question id and quiz id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/quizes/613258874ba0904481a4820d/questions/613258c94ba0904481a48211",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"quizes",
+						"613258874ba0904481a4820d",
+						"questions",
+						"613258c94ba0904481a48211"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update a single question using question id and quiz id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"question\":\"what is HTMLLLL?\",\r\n    \"answers\":[\r\n        {\"option\":\"data analysis language\"},\r\n        {\"option\":\"scripting language\"},\r\n        {\"option\":\"language to make webpages\"},\r\n        {\"option\":\"None of the above\"}\r\n    ],\r\n    \"answer\":3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/quizes/61360b6d6ccc567954b1ff70/questions/61360b976ccc567954b1ff79",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"quizes",
+						"61360b6d6ccc567954b1ff70",
+						"questions",
+						"61360b976ccc567954b1ff79"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete a question in quiz using question Id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/v1/quizes/61324c66ff45afe94e79c2f8/questions/61324c93ff45afe94e79c2fc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"quizes",
+						"61324c66ff45afe94e79c2f8",
+						"questions",
+						"61324c93ff45afe94e79c2fc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get list of all quizes",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/v1/quizes/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"quizes",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get logged in users info",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/v1/user/myInfo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"user",
+						"myInfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get leaderboard for a quiz",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/v1/quizResponse/leaderboard/613258874ba0904481a4820d",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"quizResponse",
+						"leaderboard",
+						"613258874ba0904481a4820d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Submit quiz response",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"quizId\":\"613258874ba0904481a4820d\",\r\n    \"name\":\"abhinav\",\r\n    \"title\":\"first Quiz\",\r\n    \"Score\":10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/quizResponse/submitResponse",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"quizResponse",
+						"submitResponse"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get quiz Responses for a particular user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwt}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/v1/quizResponse/attemptedQuiz/sushant",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"quizResponse",
+						"attemptedQuiz",
+						"sushant"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -3,13 +3,32 @@ const bcrypt = require("bcrypt");
 const user = require("../../models/user.model");
 const jwt = require("jsonwebtoken");
 const verify= require('../../middleware/verifyToken');
+const multer  = require('multer');
+const path = require('path');
 
-// router.route("/").get((req, res) => {
-//   user
-//     .find()
-//     .then((users) => res.json(users))
-//     .catch((err) => res.status(400).json("error : " + err));
-// });
+
+//Set up multer
+const allowedFileTypes = /jpeg|jpg|png|jfif/;
+const storage = multer.diskStorage({
+    destination: './public/uploads/',
+    filename: (req, file, callback) => {
+        callback(null, 'profile_picture-'+req.body.name+path.extname(file.originalname));
+    },
+});
+const upload = multer({
+    storage: storage,
+    fileFilter: (req, file, callback) => {
+        const extname = allowedFileTypes.test(path.extname(file.originalname).toLowerCase());
+        const mimetype = allowedFileTypes.test(file.mimetype);
+        if(mimetype && extname){
+            return callback(null, true);
+        }
+        else{
+            return callback('Only images allowed');
+        }
+    },
+}).single('profile_picture');
+
 
 //to get logged in users info
 router.route("/myInfo").get(verify,async(req,res)=>{
@@ -22,7 +41,8 @@ router.route("/myInfo").get(verify,async(req,res)=>{
         email:doc.email,
         id:doc._id,
         phone:doc.phone,
-        role:doc.role
+        role:doc.role,
+        profile_picture:doc.profile_picture
         };
       res.status(200).send({message:myInfo,success:true})
     }else{
@@ -35,7 +55,7 @@ router.route("/myInfo").get(verify,async(req,res)=>{
 
 
 //signup route
-router.route("/add").post(async (req, res) => {
+router.route("/add").post(upload,async (req, res) => {
   try {
     const name = req.body.name;
     const email = req.body.email.toLowerCase();
@@ -48,9 +68,20 @@ router.route("/add").post(async (req, res) => {
     let newuser;
     if(req.body.phone){
       const phone= req.body.phone;
-      newuser = new user({ name, email, password,phone });
+      if(req.file){
+        let profile_picture = req.file.filename;
+        newuser = new user({ name, email, password,phone,profile_picture });
+      }else{
+        newuser = new user({ name, email, password,phone });
+      }
     }else{
-      newuser = new user({ name, email, password });
+      if(req.file){
+        let profile_picture = req.file.filename;
+        newuser = new user({ name, email, password , profile_picture});
+        // console.log(newuser)
+      }else{
+        newuser = new user({ name, email, password });
+      }
     }
     newuser
       .save()
