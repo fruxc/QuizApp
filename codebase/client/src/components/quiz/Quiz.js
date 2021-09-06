@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Result from "./Result";
-import { getQuestions } from "../../services/QuizService";
 import {
   CssBaseline,
   makeStyles,
@@ -47,14 +46,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Quiz = () => {
+const Quiz = (props) => {
+  const quizData = props.location.state.quizData;
   const classes = useStyles();
   const [quiz, setQuiz] = useState([]);
   const [number, setNumber] = useState(0);
+  const quizLength = quizData.questions.length;
   const [score, setScore] = useState(0);
+  const [minutes, setMinutes] = useState(quizData.duration.minutes);
+  const [seconds, setSeconds] = useState(quizData.duration.seconds);
 
-  const [minutes, setMinutes] = useState(3);
-  const [seconds, setSeconds] = useState(1);
   useEffect(() => {
     let myInterval = setInterval(() => {
       if (seconds > 0) {
@@ -62,7 +63,7 @@ const Quiz = () => {
       }
       if (seconds === 0) {
         if (minutes === 0) {
-          setNumber(5);
+          setNumber(quizLength);
           clearInterval(myInterval);
         } else {
           setMinutes(minutes - 1);
@@ -70,7 +71,7 @@ const Quiz = () => {
         }
       }
     }, 1000);
-    if (number === 5) {
+    if (number === quizLength) {
       clearInterval(myInterval);
     }
     return () => {
@@ -97,31 +98,22 @@ const Quiz = () => {
       setNumber(number + 1);
     }, 1000);
   };
-
   useEffect(() => {
-    const getQuestionsFromAPI = async () => {
-      await getQuestions()
-        .then((response) => {
-          setQuiz(
-            response.results.map((item) => ({
-              question: item.question,
-              options: shuffle([
-                ...item.incorrect_answers,
-                item.correct_answer,
-              ]),
-              answer: item.correct_answer,
-            }))
-          );
-        })
-        .catch((err) => console.error(err));
+    const quizAttempt = () => {
+      setQuiz(
+        quizData.questions.map((item) => ({
+          question: item.question,
+          options: shuffle([...item.answers]),
+          answer: item.answer,
+        }))
+      );
     };
-    getQuestionsFromAPI();
+    quizAttempt();
   }, []);
-
   return (
     <Container component="main" className={classes.window}>
       <CssBaseline />
-      {number === 5 || (minutes === 0 && seconds === 0) ? null : (
+      {number === quizLength || (minutes === 0 && seconds === 0) ? null : (
         <Typography className={classes.timer}>
           {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
         </Typography>
@@ -144,7 +136,7 @@ const Quiz = () => {
           </div>
         </Grid>
       )}
-      {(number === 5 || (minutes === 0 && seconds === 0)) && (
+      {(number === quizLength || (minutes === 0 && seconds === 0)) && (
         <Result score={score} />
       )}
     </Container>

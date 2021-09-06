@@ -9,7 +9,6 @@ import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
 import CardActions from "@material-ui/core/CardActions";
 import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
 import { getQuizzes } from "../../services/QuizService";
 
 const useStyles = makeStyles((theme) => ({
@@ -58,19 +57,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Dashboard({ user, authenticated }) {
   const classes = useStyles();
-  const history = useHistory();
   const [quizzes, setQuizzes] = useState(null);
-
-  const handleAttemptQuiz = () => {
-    history.push("quiz");
-  };
 
   useEffect(() => {
     getQuizData();
   }, []);
   const getQuizData = async () => {
     const response = await getQuizzes();
-    console.log(response);
     setQuizzes(response.message);
   };
 
@@ -105,14 +98,20 @@ export default function Dashboard({ user, authenticated }) {
                   </CardContent>
                   {user && authenticated ? (
                     <CardActions className={classes.cardActions}>
-                      <Button
-                        color="primary"
-                        size="large"
-                        variant="contained"
-                        onClick={handleAttemptQuiz}
+                      <Link
+                        to={{
+                          pathname: "/quiz",
+                          state: { quizData: quiz },
+                        }}
                       >
-                        Attempt Quiz
-                      </Button>
+                        <Button
+                          color="primary"
+                          size="large"
+                          variant="contained"
+                        >
+                          Attempt Quiz
+                        </Button>
+                      </Link>
                     </CardActions>
                   ) : (
                     <CardActions className={classes.cardActions}>
