@@ -101,7 +101,7 @@ export default function Dashboard({ user, authenticated }) {
                       <Link
                         to={{
                           pathname: "/quiz",
-                          state: { quizData: quiz },
+                          state: { quizData: quiz, user: user },
                         }}
                       >
                         <Button

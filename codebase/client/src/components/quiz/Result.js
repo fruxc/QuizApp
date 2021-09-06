@@ -1,26 +1,113 @@
 import React from "react";
 import { Button, makeStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
-const useStyles = makeStyles(() => ({
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
+import CardActions from "@material-ui/core/CardActions";
+import Leaderboard from "../leaderboard/Leaderboard";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    padding: theme.spacing(8, 4),
+  },
+  leaderboard: {
+    padding: "20px",
+    justifyContent: "space-around",
+  },
+  result: {
+    display: "flex",
+    flexDirection: "row",
+    padding: "20px",
+    margin: "auto",
+    justifyContent: "center",
+    alignItem: "center",
+  },
+  card: {
+    height: "400px",
+    width: "100%",
+    alignItems: "center",
+    border: "1px solid black",
+    borderRadius: "5px",
+    textAlign: "center",
+  },
+  title: {
+    padding: theme.spacing(2),
+  },
+  featureList: {
+    padding: theme.spacing(2),
+  },
+  media: {
+    height: 90,
+    paddingTop: "56.25%", // 16:9,
+    marginTop: "30",
+  },
+  grid: {
+    height: "100%",
+    paddingTop: 5,
+    textAlign: "center",
+    alignItems: "stretch",
+    gridRow: "auto / span 2",
+  },
+  cardActions: {
+    textAlign: "center",
+    justifyContent: "center",
+  },
   retry: { backgroundColor: "#24A0ED", color: "white", marginTop: "20px" },
 }));
 
-const Result = ({ score }) => {
+const Result = ({ score, name, quizName, quizData, user }) => {
   const classes = useStyles();
   return (
-    <div>
-      <div>My Result: {score}</div>
-      <div>
-        <Button
-          className={classes.retry}
-          component={Link}
-          to={"/quiz"}
-          variant="contained"
-          onClick={() => window.location.reload()}
+    <div className={classes.result}>
+      <Container component="section" maxWidth="lg" className={classes.root}>
+        <Leaderboard quizId={quizData._id} className={classes.leaderboard} />
+        <br />
+        <br />
+        <br />
+        <Grid
+          container
+          spacing={2}
+          direction="row"
+          alignItems="center"
+          justifyContent="center"
         >
-          Retry
-        </Button>
-      </div>
+          <Grid item xs={12} sm={4} className={classes.grid}>
+            <Card>
+              <CardContent>
+                <Typography
+                  variant="h5"
+                  component="h3"
+                  className={classes.title}
+                >
+                  Name: {name}
+                </Typography>
+                <Typography className={classes.featureList}>
+                  Quiz: {quizName}
+                </Typography>
+                <Typography className={classes.featureList}>
+                  My Score: {score}
+                </Typography>
+              </CardContent>
+              <CardActions className={classes.cardActions}>
+                <Link
+                  to={{
+                    pathname: "/quiz",
+                    state: { quizData: quizData, user: user },
+                  }}
+                  onClick={() => window.location.reload()}
+                >
+                  <Button className={classes.retry} variant="contained">
+                    Retry
+                  </Button>
+                </Link>
+              </CardActions>
+            </Card>
+          </Grid>
+        </Grid>
+      </Container>
     </div>
   );
 };

@@ -6,6 +6,7 @@ import SignUp from "./components/signup/SignUp";
 import Dashboard from "./components/dashboard/Dashboard";
 import Navbar from "./components/navbar/Navbar";
 import Quiz from "./components/quiz/Quiz";
+import Leaderboard from "./components/leaderboard/Leaderboard";
 import ErrorBoundary from "./helper/Error";
 import CreateQuiz from "./components/quiz/quiz-crud/CreateQuiz";
 import { getUser } from "./services/UserService";
@@ -55,6 +56,7 @@ const App = () => {
                 <Route exact path="/quiz" component={Quiz} />
                 <Route exact path="/add-quiz" component={CreateQuiz} />
                 <Route exact path="/add-question" component={AddQuestion} />
+                <Route exact path="/leaderboard" component={Leaderboard} />
               </Switch>
             ) : (
               <Switch>

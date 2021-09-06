@@ -53,7 +53,6 @@ const Navbar = ({ user, authState }) => {
     <AppBar position="static">
       <Toolbar>
         <Typography
-          variant="h6"
           className={classes.title}
           onClick={() => {
             window.location.href = "/";

@@ -7,6 +7,7 @@ import {
   Typography,
   Grid,
 } from "@material-ui/core";
+import { submitAttempt } from "../../services/QuizService";
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(8, 4),
@@ -110,6 +111,20 @@ const Quiz = (props) => {
     };
     quizAttempt();
   }, []);
+
+  const submitResult = async () => {
+    const data = {
+      quizId: quizData._id,
+      name: props.location.state.user.name,
+      title: quizData.title,
+      Score: score,
+    };
+    try {
+      await submitAttempt(data);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
   return (
     <Container component="main" className={classes.window}>
       <CssBaseline />
@@ -136,9 +151,16 @@ const Quiz = (props) => {
           </div>
         </Grid>
       )}
-      {(number === quizLength || (minutes === 0 && seconds === 0)) && (
-        <Result score={score} />
-      )}
+      {(number === quizLength || (minutes === 0 && seconds === 0)) &&
+        submitResult() && (
+          <Result
+            score={score}
+            quizName={quizData.title}
+            name={props.location.state.user.name}
+            quizData={quizData}
+            user={props.location.state.user}
+          />
+        )}
     </Container>
   );
 };
