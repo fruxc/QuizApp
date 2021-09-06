@@ -9,6 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
+import { addquiz } from "../../../services/QuizService";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -46,17 +47,18 @@ export default function CrateQuiz() {
       description: description.current.value,
       duration: duration.current.value,
     };
-    //let response;
-    /*try {
-      response = await LoginService(data);
+    
+    let response;
+    try {
+      response = await addquiz(data);
       console.log(response);
-      if (response.success && response.token) {
-        localStorage.setItem("token", response.token);
-        window.location.href = "/";
+      if (response.success) {
+        localStorage.setItem("quiz_id", response._id);
+        window.location.href = "/add-question";
       }
     } catch (err) {
       console.log("Show error/ error handling");
-    }*/
+    }
   };
 
   return (
