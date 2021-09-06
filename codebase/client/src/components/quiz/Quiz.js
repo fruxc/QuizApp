@@ -121,9 +121,11 @@ const Quiz = () => {
   return (
     <Container component="main" className={classes.window}>
       <CssBaseline />
-      <Typography className={classes.timer}>
-        {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-      </Typography>
+      {number === 5 || (minutes === 0 && seconds === 0) ? null : (
+        <Typography className={classes.timer}>
+          {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+        </Typography>
+      )}
       {quiz[number] && (
         <Grid>
           <Typography
