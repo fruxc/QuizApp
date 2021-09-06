@@ -10,7 +10,7 @@ const path = require('path');
 //Set up multer
 const allowedFileTypes = /jpeg|jpg|png|jfif/;
 const storage = multer.diskStorage({
-    destination: './public/uploads/',
+    destination: './public/uploads',
     filename: (req, file, callback) => {
         callback(null, 'profile_picture-'+req.body.name+path.extname(file.originalname));
     },

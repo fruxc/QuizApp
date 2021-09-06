@@ -1,28 +1,19 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-//schema to store the options of the question
-const optionSchema = new Schema({
-  option: {
-    type: String,
-    required: true
-  }
-});
-
-
 // schema to store the the question
 const questionSchema = new Schema({
     question: {
         type: String,
         required: true
     },
-    answers: [optionSchema],
-
+    answers: [{
+      type:String
+    }],
     answer: {
       type: String,
       required: true
     }
-
 }, {
     timestamps: true
 });
