@@ -70,6 +70,7 @@ export default function Dashboard({ user, authenticated }) {
   }, []);
   const getQuizData = async () => {
     const response = await getQuizzes();
+    console.log(response);
     setQuizzes(response.message);
   };
 
@@ -97,6 +98,9 @@ export default function Dashboard({ user, authenticated }) {
                     </Typography>
                     <Typography className={classes.featureList}>
                       {quiz.description}
+                    </Typography>
+                    <Typography className={classes.featureList}>
+                      {quiz.category}
                     </Typography>
                   </CardContent>
                   {user && authenticated ? (
