@@ -21,7 +21,13 @@ const quizResponse = new Schema({
   Score : {
     type: Number,
     required: true,
+  },
+  userId:{
+    type: Schema.Types.ObjectId,
+    ref: 'user',
+    required: true
   }
+  
 });
 
 const Response = mongoose.model("Response", quizResponse);
