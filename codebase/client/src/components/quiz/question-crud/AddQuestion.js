@@ -40,11 +40,26 @@ export default function AddQuestion() {
   const correct_answer = React.useRef(null);
   
 
+
+
   const handleNext = async (e) => {
     e.preventDefault();
+    let option1_value = option1.current.value;
+    let option2_value = option2.current.value;
+    let option3_value = option3.current.value;
+    let option4_value = option4.current.value;
+    let options;
+
+    if(option3_value ==="" && option4_value === "" ) {
+      options = [option1_value,option2_value]
+    }
+    else if(option4_value === "" ){
+      options = [option1_value,option2_value,option3_value]
+    }
+
     const data = {
       question: question.current.value,
-      answers: [option1.current.value,option2.current.value,option3.current.value,option4.current.value],
+      answers: options,
       answer: correct_answer.current.value,
     };
     let response;
@@ -61,9 +76,22 @@ export default function AddQuestion() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    let option1_value = option1.current.value;
+    let option2_value = option2.current.value;
+    let option3_value = option3.current.value;
+    let option4_value = option4.current.value;
+    let options;
+
+    if(option3_value ==="" && option4_value === "" ) {
+      options = [option1_value,option2_value]
+    }
+    else if(option4_value === "" ){
+      options = [option1_value,option2_value,option3_value]
+    }
+    
     const data = {
       question: question.current.value,
-      answers: [option1.current.value,option2.current.value,option3.current.value,option4.current.value],
+      answers: options,
       answer: correct_answer.current.value,
     };
     let response;
@@ -129,7 +157,6 @@ export default function AddQuestion() {
             inputRef={option3}
             variant="outlined"
             margin="normal"
-            required
             fullWidth
             name="option1"
             label="Option 3"
@@ -140,7 +167,6 @@ export default function AddQuestion() {
             inputRef={option4}
             variant="outlined"
             margin="normal"
-            required
             fullWidth
             name="option4"
             label="Option 4"
