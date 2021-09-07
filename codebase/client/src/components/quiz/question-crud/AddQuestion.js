@@ -177,6 +177,7 @@ export default function AddQuestion() {
             inputRef={correct_answer}
             variant="outlined"
             margin="normal"
+            required
             fullWidth
             name="correct_answer"
             label="Correct Answer"
