@@ -71,7 +71,9 @@ export default function AddQuestion() {
       response = await addquestion(data);
       console.log(response);
       if (response.success ) {
+        localStorage.removeItem("quiz_id")
         window.location.href = "/";
+        
       }
     } catch (err) {
       console.log("Show error/ error handling");
