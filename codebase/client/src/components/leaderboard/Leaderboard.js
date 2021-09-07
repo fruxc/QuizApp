@@ -41,7 +41,7 @@ const Leaderboard = ({ quizId }) => {
       <Table className={classes.table} aria-label="leaderboard">
         <TableHead>
           <TableRow>
-            <TableCell></TableCell>
+            <TableCell> </TableCell>
             <TableCell>Name</TableCell>
             <TableCell>Quiz</TableCell>
             <TableCell>Score</TableCell>

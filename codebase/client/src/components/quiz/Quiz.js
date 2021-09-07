@@ -118,6 +118,7 @@ const Quiz = (props) => {
       name: props.location.state.user.name,
       title: quizData.title,
       Score: score,
+      userId: props.location.state.user._id,
     };
     try {
       await submitAttempt(data);
