@@ -7,8 +7,7 @@ import CreateIcon from "@material-ui/icons/Create";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import AccessTimeIcon from "@material-ui/icons/AccessTime";
+import { addquestion } from "../../../services/QuizService";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -41,25 +40,42 @@ export default function AddQuestion() {
   const correct_answer = React.useRef(null);
   
 
+  const handleNext = async (e) => {
+    e.preventDefault();
+    const data = {
+      question: question.current.value,
+      answers: [option1.current.value,option2.current.value,option3.current.value,option4.current.value],
+      answer: correct_answer.current.value,
+    };
+    let response;
+    try {
+      response = await addquestion(data);
+      console.log(response);
+      if (response.success) {
+        window.location.href = "/add-question";
+      }
+    } catch (err) {
+      console.log("Show error/ error handling");
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    /*const data = {
-      title: title.current.value,
-      category: category.current.value,
-      description: description.current.value,
-      duration: duration.current.value,
-    };*/
-    //let response;
-    /*try {
-      response = await LoginService(data);
+    const data = {
+      question: question.current.value,
+      answers: [option1.current.value,option2.current.value,option3.current.value,option4.current.value],
+      answer: correct_answer.current.value,
+    };
+    let response;
+    try {
+      response = await addquestion(data);
       console.log(response);
-      if (response.success && response.token) {
-        localStorage.setItem("token", response.token);
+      if (response.success ) {
         window.location.href = "/";
       }
     } catch (err) {
       console.log("Show error/ error handling");
-    }*/
+    }
   };
 
   return (
@@ -146,6 +162,7 @@ export default function AddQuestion() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick= {handleNext}
           >
             Next
           </Button>

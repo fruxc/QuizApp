@@ -32,9 +32,10 @@ const addquiz = async (data) => {
 };
 
 const addquestion = async (data) => {
+  const quizId= localStorage.getItem("quiz_id");
   try {
     const response = await fetch(
-      config.baseUrl + "api/v1/quizes",
+      `${config.baseUrl}api/v1/quizes/${quizId}/questions`,
       {
         method: "POST",
         headers: {
@@ -180,6 +181,7 @@ export {
   getQuizzes,
   getQuestions,
   addquiz,
+  addquestion,
   submitAttempt,
   getLeaderboardByQuiz,
 };
