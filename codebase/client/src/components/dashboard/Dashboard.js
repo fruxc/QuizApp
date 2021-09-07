@@ -10,6 +10,8 @@ import Button from "@material-ui/core/Button";
 import CardActions from "@material-ui/core/CardActions";
 import { Link } from "react-router-dom";
 import { getQuizzes } from "../../services/QuizService";
+import { deleteQuiz } from "../../services/QuizService";
+import { toast } from "react-toastify";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -65,6 +67,22 @@ export default function Dashboard({ user, authenticated }) {
   const getQuizData = async () => {
     const response = await getQuizzes();
     setQuizzes(response.message);
+  };
+
+  const handleDelete = async (quizId) => {
+    console.log(quizId)
+    let response;
+    try {
+      response = await deleteQuiz(quizId);
+      console.log(response);
+      if (response.success ) {
+        toast("Quiz deleted successfully!");
+        window.location.href = "/";
+        
+      }
+    } catch (err) {
+      console.log("Show error/ error handling");
+    }
   };
 
   return (
@@ -125,13 +143,15 @@ export default function Dashboard({ user, authenticated }) {
                       <Button color="primary" size="large" variant="contained">
                         Edit
                       </Button>
-                      <Button
-                        color="secondary"
-                        size="large"
-                        variant="contained"
-                      >
-                        Delete
-                      </Button>
+                        <Button
+                          color="secondary"
+                          size="large"
+                          variant="contained"
+                          onClick = {()=>handleDelete(quiz._id)}
+                        >
+                          Delete
+                        </Button>
+                  
                     </CardActions>
                   )}
                 </Card>

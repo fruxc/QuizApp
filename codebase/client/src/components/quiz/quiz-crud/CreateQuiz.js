@@ -109,7 +109,6 @@ export default function CrateQuiz() {
             inputRef={duration}
             variant="outlined"
             margin="normal"
-            required
             fullWidth
             name="duration"
             label="Duration"
