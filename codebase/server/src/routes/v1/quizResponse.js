@@ -21,27 +21,31 @@ router.route("/leaderboard/:quizId").get(verify,(req, res) => {
   });
 
 
-//Over all leaderboard of all quizes
-router.route("/leaderboard").get(verify,async (req,res)=>{
-  let users=await user.find({});
-  var userMap = {};
-  users.forEach(function(user) {
-    userMap[user._id] = user.name;
-  });
-  
-  let userIds=Object.keys(userMap)
-  userIds.forEach(async(user)=>{
-    const userQuizes=await Response.find({userId:user})
-    // console.log(userQuizes)
-    let totalScore=0
-    userQuizes.forEach((quiz)=>{
-      totalScore=totalScore+quiz.Score;
-    })
-    // console.log(totalScore)
-    // userMap[user._id]['Score']=totalScore;
-    // console.log(userMap)
+//Over all leaderboard of all quizes of user
+router.route("/leaderboard").get(async (req,res)=>{
+  Response.aggregate([
+    {
+      $sort: { Score: -1 }
+    },
+    {
+      $group:{
+        _id:'$userId',
+        score_count: { $sum: '$Score' },
+        "data" : {"$first" : "$$ROOT"}
+      }
+    },
+    {
+      $project: {
+        totalScore:'$score_count',
+        name:"$data.name"
+        }
+      }
+  ])
+  .exec()
+  .then((leaderboardData)=>{ res.status(201).json({message:leaderboardData,success:true})})
+  .catch((err)=>{
+    res.status(404).json({message:"something went wrong try again later",success:false})
   })
-  res.send({userIds,userMap});  
 })
 
 // to submit response after user gives the quiz
@@ -53,7 +57,8 @@ router.route("/leaderboard").get(verify,async (req,res)=>{
       if(alreadyExisting){
         let currentScore=parseInt(alreadyExisting["Score"], 10);
         let newScore=parseInt(req.body.Score)
-        if(newScore>=currentScore){
+        if(newScore>currentScore){
+          await Response.findOneAndUpdate({quizId: quizId,userId:userId },{ $push:{ allScores:currentScore }})
           Response.updateOne({quizId: quizId,userId:userId },{Score:newScore})
           .then(async(updatedData)=>{
             let quizResponse=await Response.findOne({quizId: quizId,userId:userId });
@@ -63,7 +68,14 @@ router.route("/leaderboard").get(verify,async (req,res)=>{
             res.send({ message: err, success: false });
           })
         }else{
-          res.status(202).json({message:alreadyExisting,success:true})
+          Response.findOneAndUpdate({quizId: quizId,userId:userId },{ $push:{ allScores: newScore}})
+          .then(async(updatedData)=>{
+            let quizResponse=await Response.findOne({quizId: quizId,userId:userId });
+            res.status(201).json({ message:quizResponse, success: true });
+          })
+          .catch((err)=>{
+            res.send({ message: err, success: false });
+          })
         }
       }else{
         Response.create(req.body)
