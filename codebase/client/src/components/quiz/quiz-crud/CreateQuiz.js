@@ -9,7 +9,17 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
-import { addquiz } from "../../../services/QuizService";
+import {
+  addQuiz,
+  updateQuiz,
+  deleteQuestion,
+} from "../../../services/QuizService";
+import Accordion from "@material-ui/core/Accordion";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -29,38 +39,81 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  questions: {
+    justifyContent: "space-between",
+  },
 }));
 
-export default function CrateQuiz() {
+export default function CreateQuiz(props) {
   const classes = useStyles();
+  let quizData = {
+    title: "",
+    description: "",
+    category: "",
+    duration: {
+      minutes: "",
+      hours: "",
+      seconds: "",
+    },
+  };
+  if (props.location.state.quizData) {
+    quizData = props.location.state.quizData;
+  }
+  const [title, setTitle] = React.useState(quizData.title);
+  const [description, setDescription] = React.useState(quizData.description);
+  const [category, setCategory] = React.useState(quizData.category);
+  const [duration, setDuration] = React.useState(quizData.duration.minutes);
 
-  const title = React.useRef(null);
-  const description = React.useRef(null);
-  const category = React.useRef(null);
-  const duration = React.useRef(null);
-
-  const handleSubmit = async (e) => {
+  const addMoreQuestion = async (e) => {
     e.preventDefault();
-    const data = {
-      title: title.current.value,
-      category: category.current.value,
-      description: description.current.value,
-      duration: duration.current.value,
-    };
-    
-    let response;
     try {
-      response = await addquiz(data);
-      console.log(response);
-      if (response.success) {
-        localStorage.setItem("quiz_id", response.message._id);
+      if (quizData._id) {
+        localStorage.setItem("quiz_id", quizData._id);
         window.location.href = "/add-question";
       }
     } catch (err) {
-      console.log("Show error/ error handling");
+      toast(err.message);
+    }
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data = {
+      title: title,
+      category: category,
+      description: description,
+      duration: { minutes: duration },
+    };
+
+    let response;
+    try {
+      if (quizData._id) {
+        response = await updateQuiz(data, quizData._id);
+        if (response.success) {
+          window.location.href = "/";
+        }
+      } else {
+        response = await addQuiz(data);
+        if (response.success) {
+          localStorage.setItem("quiz_id", response.message._id);
+          window.location.href = "/add-question";
+        }
+      }
+    } catch (err) {
+      toast(err.message);
     }
   };
 
+  const handleDelete = async (questionId) => {
+    let response;
+    try {
+      response = await deleteQuestion(quizData._id, questionId);
+      if (response.success) {
+        toast("Question deleted successfully!");
+      }
+    } catch (err) {
+      toast(err.message);
+    }
+  };
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -68,9 +121,15 @@ export default function CrateQuiz() {
         <Avatar className={classes.avatar}>
           <CreateIcon />
         </Avatar>
-        <Typography component="h1" variant="h5">
-          Create Quiz
-        </Typography>
+        {quizData._id ? (
+          <Typography component="h1" variant="h5">
+            Create Quiz
+          </Typography>
+        ) : (
+          <Typography component="h1" variant="h5">
+            Update Quiz
+          </Typography>
+        )}
         <form key={"add-quiz"} className={classes.form} onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
@@ -82,10 +141,12 @@ export default function CrateQuiz() {
             name="title"
             autoComplete="title"
             autoFocus
-            inputRef={title}
+            value={title}
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
           />
           <TextField
-            inputRef={category}
             variant="outlined"
             margin="normal"
             required
@@ -94,9 +155,12 @@ export default function CrateQuiz() {
             label="Category"
             id="category"
             autoComplete="category"
+            value={category}
+            onChange={(e) => {
+              setCategory(e.target.value);
+            }}
           />
           <TextField
-            inputRef={description}
             variant="outlined"
             margin="normal"
             fullWidth
@@ -104,15 +168,19 @@ export default function CrateQuiz() {
             label="Description"
             id="description"
             autoComplete="description"
+            value={description}
+            onChange={(e) => {
+              setDescription(e.target.value);
+            }}
           />
           <TextField
-            inputRef={duration}
             variant="outlined"
             margin="normal"
             fullWidth
             name="duration"
-            label="Duration"
+            label="Duration (in Minutes)"
             id="duration"
+            value={duration}
             autoComplete="duration"
             InputProps={{
               startAdornment: (
@@ -121,17 +189,90 @@ export default function CrateQuiz() {
                 </InputAdornment>
               ),
             }}
+            onChange={(e) => {
+              setDuration(e.target.value);
+            }}
           />
-
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Add Questions
-          </Button>
+          {quizData._id ? (
+            <div>
+              {quizData._id !== null &&
+                quizData.questions.map((question, index) => (
+                  <Accordion key={question._id}>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="panel1a-content"
+                      id="panel1a-header"
+                    >
+                      <Typography className={classes.heading}>
+                        Question{index + 1}
+                      </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <Typography>{question.question}</Typography>
+                    </AccordionDetails>
+                    <AccordionDetails classes={{ root: classes.questions }}>
+                      <Link
+                        to={{
+                          pathname: "/add-question",
+                          state: {
+                            questionData: question,
+                            quizId: quizData._id,
+                          },
+                        }}
+                      >
+                        <Button
+                          color="primary"
+                          size="large"
+                          variant="contained"
+                        >
+                          Edit
+                        </Button>
+                      </Link>
+                      <Button
+                        color="secondary"
+                        size="large"
+                        variant="contained"
+                        onClick={() => {
+                          handleDelete(question._id);
+                        }}
+                      >
+                        Delete
+                      </Button>
+                    </AccordionDetails>
+                  </Accordion>
+                ))}
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                Update Quiz
+              </Button>
+              <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                onClick={(e) => {
+                  addMoreQuestion(e);
+                }}
+              >
+                Add More Questions
+              </Button>
+            </div>
+          ) : (
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Add Questions
+            </Button>
+          )}
         </form>
       </div>
     </Container>

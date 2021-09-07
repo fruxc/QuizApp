@@ -8,6 +8,8 @@ import {
   Grid,
 } from "@material-ui/core";
 import { submitAttempt } from "../../services/QuizService";
+import { toast } from "react-toastify";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(8, 4),
@@ -78,7 +80,7 @@ const Quiz = (props) => {
     return () => {
       clearInterval(myInterval);
     };
-  });
+  }, []);
 
   const shuffle = (arr) => arr.sort(() => Math.random() - 0.5);
 
@@ -118,12 +120,12 @@ const Quiz = (props) => {
       name: props.location.state.user.name,
       title: quizData.title,
       Score: score,
-      userId: props.location.state.user._id,
+      userId: props.location.state.user.id,
     };
     try {
       await submitAttempt(data);
     } catch (err) {
-      console.log(err.message);
+      toast(err.message);
     }
   };
   return (

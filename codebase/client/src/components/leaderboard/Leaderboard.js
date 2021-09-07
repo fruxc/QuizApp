@@ -7,9 +7,14 @@ import {
   TableContainer,
   TableCell,
 } from "@material-ui/core";
-import { getLeaderboardByQuiz } from "../../services/QuizService";
+import {
+  getLeaderboardByQuiz,
+  getLeaderboard,
+  getLeaderboardByUser,
+} from "../../services/QuizService";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
+import { toast } from "react-toastify";
 
 const useStyles = makeStyles({
   container: {},
@@ -17,12 +22,22 @@ const useStyles = makeStyles({
     minWidth: 650,
   },
 });
-const Leaderboard = ({ quizId }) => {
+const Leaderboard = (props, { quizId }) => {
   const classes = useStyles();
   const [leaderboard, setLeaderboard] = useState([]);
-
+  let user = null;
+  if (props.location.state.users) {
+    user = props.location.state.users;
+  }
   useEffect(() => {
-    getLeaderboardByQuizId();
+    if (quizId) {
+      getLeaderboardByQuizId();
+    }
+    if (user) {
+      getLeaderboardByUserId();
+    } else {
+      getLeaderboardForAll();
+    }
   }, []);
   const getLeaderboardByQuizId = async () => {
     let response;
@@ -32,7 +47,29 @@ const Leaderboard = ({ quizId }) => {
         setLeaderboard(response.message);
       }
     } catch (err) {
-      console.log(err.message);
+      toast(err.message);
+    }
+  };
+  const getLeaderboardByUserId = async () => {
+    let response;
+    try {
+      response = await getLeaderboardByUser(user.id);
+      if (response.success) {
+        setLeaderboard(response.message);
+      }
+    } catch (err) {
+      toast(err.message);
+    }
+  };
+  const getLeaderboardForAll = async () => {
+    let response;
+    try {
+      response = await getLeaderboard(quizId);
+      if (response.success) {
+        setLeaderboard(response.message);
+      }
+    } catch (err) {
+      toast(err.message);
     }
   };
 
@@ -41,10 +78,14 @@ const Leaderboard = ({ quizId }) => {
       <Table className={classes.table} aria-label="leaderboard">
         <TableHead>
           <TableRow>
-            <TableCell> </TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell>Quiz</TableCell>
-            <TableCell>Score</TableCell>
+            <TableCell> Rank </TableCell>
+            <TableCell> Name </TableCell>
+            {quizId || user ? <TableCell> Quiz </TableCell> : null}
+            {quizId || user ? (
+              <TableCell> Score </TableCell>
+            ) : (
+              <TableCell> Total Score </TableCell>
+            )}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -52,9 +93,12 @@ const Leaderboard = ({ quizId }) => {
             return (
               <TableRow key={elem._id}>
                 <TableCell>{index + 1}</TableCell>
-                <TableCell>{elem.name}</TableCell>
-                <TableCell>{elem.title}</TableCell>
-                <TableCell>{elem.Score}</TableCell>
+                {elem.name ? <TableCell>{elem.name}</TableCell> : null}
+                {elem.title ? <TableCell>{elem.title}</TableCell> : null}
+                {elem.Score ? <TableCell>{elem.Score}</TableCell> : null}
+                {elem.totalScore ? (
+                  <TableCell>{elem.totalScore}</TableCell>
+                ) : null}
               </TableRow>
             );
           })}

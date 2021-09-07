@@ -1,7 +1,7 @@
 import config from "../environments/main";
 import fetchError from "../helper/customException";
 
-const addquiz = async (data) => {
+const addQuiz = async (data) => {
   try {
     const response = await fetch(
       config.baseUrl + "api/v1/quizes",
@@ -31,13 +31,72 @@ const addquiz = async (data) => {
   }
 };
 
-const addquestion = async (data) => {
-  const quizId= localStorage.getItem("quiz_id");
+const updateQuiz = async (data, quizId) => {
+  try {
+    const response = await fetch(
+      `${config.baseUrl}api/v1/quizes/${quizId}`,
+      {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          authorization: `bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(data),
+      },
+      2 * 10 * 60 * 1000
+    );
+    if (!response.ok) {
+      throw response;
+    }
+    const json_response = await response.json();
+    return json_response;
+  } catch (err) {
+    if (typeof err.text === "function") {
+      let errorMessage = await err.text();
+      throw new fetchError(err.status, errorMessage);
+    } else {
+      throw new Error(err);
+    }
+  }
+};
+const addQuestion = async (data) => {
+  const quizId = localStorage.getItem("quiz_id");
   try {
     const response = await fetch(
       `${config.baseUrl}api/v1/quizes/${quizId}/questions`,
       {
         method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          authorization: `bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(data),
+      },
+      2 * 10 * 60 * 1000
+    );
+    if (!response.ok) {
+      throw response;
+    }
+    const json_response = await response.json();
+    return json_response;
+  } catch (err) {
+    if (typeof err.text === "function") {
+      let errorMessage = await err.text();
+      throw new fetchError(err.status, errorMessage);
+    } else {
+      throw new Error(err);
+    }
+  }
+};
+
+const updateQuestion = async (data, quizId, questionId) => {
+  try {
+    const response = await fetch(
+      `${config.baseUrl}api/v1/quizes/${quizId}/questions/${questionId}`,
+      {
+        method: "PUT",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -148,6 +207,63 @@ const getLeaderboardByQuiz = async (quizId) => {
   }
 };
 
+const getLeaderboardByUser = async (userId) => {
+  try {
+    const response = await fetch(
+      `${config.baseUrl}api/v1/quizResponse/attemptedQuiz/${userId}`,
+      {
+        method: "get",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          authorization: `bearer ${localStorage.getItem("token")}`,
+        },
+      },
+      2 * 10 * 60 * 1000
+    );
+    if (!response.ok) {
+      throw response;
+    }
+    const json_response = await response.json();
+    return json_response;
+  } catch (err) {
+    if (typeof err.text === "function") {
+      let errorMessage = await err.text();
+      throw new fetchError(err.status, errorMessage);
+    } else {
+      throw new Error(err);
+    }
+  }
+};
+
+const getLeaderboard = async () => {
+  try {
+    const response = await fetch(
+      `${config.baseUrl}api/v1/quizResponse/leaderboard`,
+      {
+        method: "get",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      },
+      2 * 10 * 60 * 1000
+    );
+    if (!response.ok) {
+      throw response;
+    }
+    const json_response = await response.json();
+    return json_response;
+  } catch (err) {
+    if (typeof err.text === "function") {
+      let errorMessage = await err.text();
+      throw new fetchError(err.status, errorMessage);
+    } else {
+      throw new Error(err);
+    }
+  }
+};
+
 const submitAttempt = async (data) => {
   try {
     const response = await fetch(
@@ -207,12 +323,46 @@ const deleteQuiz = async (quizId) => {
   }
 };
 
+const deleteQuestion = async (quizId, questionId) => {
+  try {
+    const response = await fetch(
+      `${config.baseUrl}api/v1/quizes/${quizId}/questions/${questionId}`,
+      {
+        method: "delete",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          authorization: `bearer ${localStorage.getItem("token")}`,
+        },
+      },
+      2 * 10 * 60 * 1000
+    );
+    if (!response.ok) {
+      throw response;
+    }
+    const json_response = await response.json();
+    return json_response;
+  } catch (err) {
+    if (typeof err.text === "function") {
+      let errorMessage = await err.text();
+      throw new fetchError(err.status, errorMessage);
+    } else {
+      throw new Error(err);
+    }
+  }
+};
+
 export {
   getQuizzes,
   getQuestions,
-  addquiz,
-  addquestion,
+  addQuiz,
+  addQuestion,
   submitAttempt,
   getLeaderboardByQuiz,
   deleteQuiz,
+  updateQuiz,
+  deleteQuestion,
+  updateQuestion,
+  getLeaderboard,
+  getLeaderboardByUser,
 };

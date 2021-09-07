@@ -70,18 +70,15 @@ export default function Dashboard({ user, authenticated }) {
   };
 
   const handleDelete = async (quizId) => {
-    console.log(quizId)
     let response;
     try {
       response = await deleteQuiz(quizId);
-      console.log(response);
-      if (response.success ) {
+      if (response.success) {
         toast("Quiz deleted successfully!");
         window.location.href = "/";
-        
       }
     } catch (err) {
-      console.log("Show error/ error handling");
+      toast(err.message);
     }
   };
 
@@ -140,18 +137,28 @@ export default function Dashboard({ user, authenticated }) {
                   )}
                   {user && authenticated && user.role === "admin" && (
                     <CardActions className={classes.cardActions}>
-                      <Button color="primary" size="large" variant="contained">
-                        Edit
-                      </Button>
+                      <Link
+                        to={{
+                          pathname: "/add-quiz",
+                          state: { quizData: quiz },
+                        }}
+                      >
                         <Button
-                          color="secondary"
+                          color="primary"
                           size="large"
                           variant="contained"
-                          onClick = {()=>handleDelete(quiz._id)}
                         >
-                          Delete
+                          Edit
                         </Button>
-                  
+                      </Link>
+                      <Button
+                        color="secondary"
+                        size="large"
+                        variant="contained"
+                        onClick={() => handleDelete(quiz._id)}
+                      >
+                        Delete
+                      </Button>
                     </CardActions>
                   )}
                 </Card>
@@ -164,7 +171,10 @@ export default function Dashboard({ user, authenticated }) {
                 size="large"
                 variant="contained"
                 component={Link}
-                to={"/add-quiz"}
+                to={{
+                  pathname: "/add-quiz",
+                  state: {},
+                }}
               >
                 <AddIcon />
               </Button>

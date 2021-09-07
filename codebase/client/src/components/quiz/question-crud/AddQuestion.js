@@ -7,7 +7,8 @@ import CreateIcon from "@material-ui/icons/Create";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { addquestion } from "../../../services/QuizService";
+import { addQuestion, updateQuestion } from "../../../services/QuizService";
+import { toast } from "react-toastify";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -29,82 +30,69 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddQuestion() {
+export default function AddQuestion(props) {
   const classes = useStyles();
+  let questionData = {
+    question: "",
+    answers: [],
+    answer: "",
+  };
+  let quizId = "";
+  if (props.location.state) {
+    questionData = props.location.state.questionData;
+    quizId = props.location.state.quizId;
+  }
+  const [question, setQuestion] = React.useState(questionData.question);
+  const [option1, setOption1] = React.useState(questionData.answers[0] || "");
+  const [option2, setOption2] = React.useState(questionData.answers[1] || "");
+  const [option3, setOption3] = React.useState(questionData.answers[2] || "");
+  const [correct_answer, setCorrectAnswer] = React.useState(
+    questionData.answer
+  );
 
-  const question = React.useRef(null);
-  const option1 = React.useRef(null);
-  const option2 = React.useRef(null);
-  const option3 = React.useRef(null);
-  const option4 = React.useRef(null);
-  const correct_answer = React.useRef(null);
-  
-
-
-
-  const handleNext = async (e) => {
-    e.preventDefault();
-    let option1_value = option1.current.value;
-    let option2_value = option2.current.value;
-    let option3_value = option3.current.value;
-    let option4_value = option4.current.value;
-    let options;
-
-    if(option3_value ==="" && option4_value === "" ) {
-      options = [option1_value,option2_value]
-    }
-    else if(option4_value === "" ){
-      options = [option1_value,option2_value,option3_value]
-    }
-
+  const addQuestionToQuiz = async () => {
+    let options = [];
+    if (option1 !== "") options.push(option1);
+    if (option2 !== "") options.push(option2);
+    if (option3 !== "") options.push(option3);
+    if (correct_answer !== "") options.push(correct_answer);
     const data = {
-      question: question.current.value,
+      question: question,
       answers: options,
-      answer: correct_answer.current.value,
+      answer: correct_answer,
     };
     let response;
     try {
-      response = await addquestion(data);
-      console.log(response);
-      if (response.success) {
-        window.location.href = "/add-question";
+      if (questionData._id) {
+        response = await updateQuestion(data, quizId, questionData._id);
+        if (response.success) {
+          toast("Question has been updated successfully!");
+        }
+      } else {
+        response = await addQuestion(data);
+        toast("Question added successfully!");
+        if (response.success) {
+          return response.success;
+        } else {
+          toast(response.message);
+        }
       }
     } catch (err) {
-      console.log("Show error/ error handling");
+      toast(err.message);
+    }
+  };
+  const handleNext = async (e) => {
+    e.preventDefault();
+    if (addQuestionToQuiz()) {
+      window.location.href = "/add-question";
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let option1_value = option1.current.value;
-    let option2_value = option2.current.value;
-    let option3_value = option3.current.value;
-    let option4_value = option4.current.value;
-    let options;
-
-    if(option3_value ==="" && option4_value === "" ) {
-      options = [option1_value,option2_value]
-    }
-    else if(option4_value === "" ){
-      options = [option1_value,option2_value,option3_value]
-    }
-    
-    const data = {
-      question: question.current.value,
-      answers: options,
-      answer: correct_answer.current.value,
-    };
-    let response;
-    try {
-      response = await addquestion(data);
-      console.log(response);
-      if (response.success ) {
-        localStorage.removeItem("quiz_id")
-        window.location.href = "/";
-        
-      }
-    } catch (err) {
-      console.log("Show error/ error handling");
+    if (addQuestionToQuiz()) {
+      localStorage.removeItem("quiz_id");
+      window.location.href = "/";
     }
   };
 
@@ -118,7 +106,11 @@ export default function AddQuestion() {
         <Typography component="h1" variant="h5">
           Add Question
         </Typography>
-        <form key={"add-question"} className={classes.form} onSubmit={handleSubmit}>
+        <form
+          key={"add-question"}
+          className={classes.form}
+          onSubmit={handleSubmit}
+        >
           <TextField
             variant="outlined"
             margin="normal"
@@ -129,10 +121,12 @@ export default function AddQuestion() {
             name="question"
             autoComplete="question"
             autoFocus
-            inputRef={question}
+            value={question}
+            onChange={(e) => {
+              setQuestion(e.target.value);
+            }}
           />
           <TextField
-            inputRef={option1}
             variant="outlined"
             margin="normal"
             required
@@ -141,20 +135,25 @@ export default function AddQuestion() {
             label="Option 1"
             id="option1"
             autoComplete="option 1"
+            value={option1}
+            onChange={(e) => {
+              setOption1(e.target.value);
+            }}
           />
           <TextField
-            inputRef={option2}
             variant="outlined"
             margin="normal"
-            required
             fullWidth
             name="option2"
             label="Option 2"
             id="option2"
             autoComplete="option 2"
+            value={option2}
+            onChange={(e) => {
+              setOption2(e.target.value);
+            }}
           />
           <TextField
-            inputRef={option3}
             variant="outlined"
             margin="normal"
             fullWidth
@@ -162,19 +161,12 @@ export default function AddQuestion() {
             label="Option 3"
             id="option3"
             autoComplete="option 3"
+            value={option3}
+            onChange={(e) => {
+              setOption3(e.target.value);
+            }}
           />
           <TextField
-            inputRef={option4}
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            name="option4"
-            label="Option 4"
-            id="option4"
-            autoComplete="option 4"
-          />
-          <TextField
-            inputRef={correct_answer}
             variant="outlined"
             margin="normal"
             required
@@ -183,27 +175,44 @@ export default function AddQuestion() {
             label="Correct Answer"
             id="correct_answer"
             autoComplete="Correct Answer"
+            value={correct_answer}
+            onChange={(e) => {
+              setCorrectAnswer(e.target.value);
+            }}
           />
-         
 
-          <Button
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick= {handleNext}
-          >
-            Next
-          </Button>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            End
-          </Button>
+          {questionData._id ? (
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Update Question
+            </Button>
+          ) : (
+            <div>
+              <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                onClick={handleNext}
+              >
+                Next
+              </Button>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                End
+              </Button>
+            </div>
+          )}
         </form>
       </div>
     </Container>

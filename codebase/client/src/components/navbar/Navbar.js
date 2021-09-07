@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
   accountCircle: {
     paddingRight: "5px",
   },
+  leaderboard: {
+    margin: theme.spacing(3, 0, 2),
+  },
 }));
 
 const Navbar = ({ user, authState }) => {
@@ -60,6 +63,16 @@ const Navbar = ({ user, authState }) => {
         >
           Quiz App
         </Typography>
+        <Button
+          variant="contained"
+          color="secondary"
+          className={classes.submit}
+          onClick={() => {
+            window.location.href = "/leaderboard";
+          }}
+        >
+          Leaderboard
+        </Button>
         {!user && (
           <div>
             <Button color="inherit" component={Link} to={"/login"}>
@@ -98,8 +111,26 @@ const Navbar = ({ user, authState }) => {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem>My Profile</MenuItem>
-                <MenuItem>My Quizzes</MenuItem>
+                <Link
+                  to={{
+                    pathname: "/profile",
+                    state: {
+                      users: user,
+                    },
+                  }}
+                >
+                  <MenuItem>My Profile</MenuItem>
+                </Link>
+                <Link
+                  to={{
+                    pathname: "/leaderboard",
+                    state: {
+                      users: user,
+                    },
+                  }}
+                >
+                  <MenuItem>My Quizzes</MenuItem>
+                </Link>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </div>

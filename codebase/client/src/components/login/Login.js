@@ -59,7 +59,6 @@ export default function Login() {
         toast("User has been logged in successfully!");
       }
     } catch (err) {
-      console.log(err);
       toast(err.message);
     }
   };
