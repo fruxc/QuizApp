@@ -53,7 +53,7 @@ export default function CrateQuiz() {
       response = await addquiz(data);
       console.log(response);
       if (response.success) {
-        localStorage.setItem("quiz_id", response._id);
+        localStorage.setItem("quiz_id", response.message._id);
         window.location.href = "/add-question";
       }
     } catch (err) {
