@@ -4,7 +4,7 @@ import fetchError from "../helper/customException";
 const addQuiz = async (data) => {
   try {
     const response = await fetch(
-      config.baseUrl + "api/v1/quizes",
+      config.baseUrl + "api/v1/quizzes",
       {
         method: "POST",
         headers: {
@@ -34,7 +34,7 @@ const addQuiz = async (data) => {
 const updateQuiz = async (data, quizId) => {
   try {
     const response = await fetch(
-      `${config.baseUrl}api/v1/quizes/${quizId}`,
+      `${config.baseUrl}api/v1/quizzes/${quizId}`,
       {
         method: "PUT",
         headers: {
@@ -65,7 +65,7 @@ const addQuestion = async (data) => {
   const quizId = localStorage.getItem("quiz_id");
   try {
     const response = await fetch(
-      `${config.baseUrl}api/v1/quizes/${quizId}/questions`,
+      `${config.baseUrl}api/v1/quizzes/${quizId}/questions`,
       {
         method: "POST",
         headers: {
@@ -95,7 +95,7 @@ const addQuestion = async (data) => {
 const updateQuestion = async (data, quizId, questionId) => {
   try {
     const response = await fetch(
-      `${config.baseUrl}api/v1/quizes/${quizId}/questions/${questionId}`,
+      `${config.baseUrl}api/v1/quizzes/${quizId}/questions/${questionId}`,
       {
         method: "PUT",
         headers: {
@@ -125,7 +125,7 @@ const updateQuestion = async (data, quizId, questionId) => {
 const getQuizzes = async () => {
   try {
     const response = await fetch(
-      config.baseUrl + "api/v1/quizes",
+      config.baseUrl + "api/v1/quizzes",
       {
         method: "get",
         headers: {
@@ -270,7 +270,7 @@ const submitAttempt = async (data) => {
 const deleteQuiz = async (quizId) => {
   try {
     const response = await fetch(
-      `${config.baseUrl}api/v1/quizes/${quizId}`,
+      `${config.baseUrl}api/v1/quizzes/${quizId}`,
       {
         method: "delete",
         headers: {
@@ -299,7 +299,7 @@ const deleteQuiz = async (quizId) => {
 const deleteQuestion = async (quizId, questionId) => {
   try {
     const response = await fetch(
-      `${config.baseUrl}api/v1/quizes/${quizId}/questions/${questionId}`,
+      `${config.baseUrl}api/v1/quizzes/${quizId}/questions/${questionId}`,
       {
         method: "delete",
         headers: {
