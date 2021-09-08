@@ -8,6 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
 import CardActions from "@material-ui/core/CardActions";
+import TextField from "@material-ui/core/TextField";
 import { Link } from "react-router-dom";
 import { getQuizzes } from "../../services/QuizService";
 import { deleteQuiz } from "../../services/QuizService";
@@ -61,6 +62,8 @@ export default function Dashboard({ user, authenticated }) {
   const classes = useStyles();
   const [quizzes, setQuizzes] = useState(null);
 
+  const [searchQuery, setSearchQuery] = React.useState("");
+
   useEffect(() => {
     getQuizData();
   }, []);
@@ -68,6 +71,22 @@ export default function Dashboard({ user, authenticated }) {
     const response = await getQuizzes();
     setQuizzes(response.message);
   };
+
+  let filteredQuizzes = [];
+  if (quizzes !== null) {
+    if (searchQuery.trim() !== "") {
+      const query = searchQuery.trim().toLowerCase();
+      filteredQuizzes = quizzes.filter((quiz) =>
+        quiz.category.toLowerCase().includes(query)
+      );
+    } else {
+      filteredQuizzes = [...quizzes];
+    }
+  }
+
+  const sortedQuizzes = filteredQuizzes.sort(
+    (a, b) => new Date(b.created_at) - new Date(a.created_at)
+  );
 
   const handleDelete = async (quizId) => {
     let response;
@@ -85,6 +104,17 @@ export default function Dashboard({ user, authenticated }) {
   return (
     <div className={classes.quiz}>
       <Container component="section" maxWidth="lg" className={classes.root}>
+        <div className="search">
+          <TextField
+            variant="outlined"
+            margin="dense"
+            size="small"
+            id="search"
+            label="Search by Category"
+            name="search"
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
         <Grid
           container
           spacing={2}
@@ -92,8 +122,8 @@ export default function Dashboard({ user, authenticated }) {
           alignItems="center"
           justifyContent="center"
         >
-          {quizzes !== null &&
-            quizzes.map((quiz) => (
+          {sortedQuizzes !== null &&
+            sortedQuizzes.map((quiz) => (
               <Grid item xs={12} sm={4} className={classes.grid} key={quiz._id}>
                 <Card>
                   <CardContent>
@@ -108,7 +138,7 @@ export default function Dashboard({ user, authenticated }) {
                       {quiz.description}
                     </Typography>
                     <Typography className={classes.featureList}>
-                      {quiz.category}
+                      Category: {quiz.category}
                     </Typography>
                   </CardContent>
                   {user && authenticated ? (
