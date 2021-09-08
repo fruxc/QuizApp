@@ -27,7 +27,6 @@ const Leaderboard = (props) => {
   const [leaderboard, setLeaderboard] = useState([]);
   let user;
   let quizId;
-  console.log(props);
   try {
     if (
       props.quizId === undefined &&
