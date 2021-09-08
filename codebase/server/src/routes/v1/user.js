@@ -6,6 +6,8 @@ const verify = require("../../middleware/verifyToken");
 const multer = require("multer");
 const path = require("path");
 
+const { getUserInfo,createUser,loginUser}= require('../../services/users.services')
+
 //Set up multer
 const allowedFileTypes = /jpeg|jpg|png|jfif/;
 const storage = multer.diskStorage({
@@ -36,64 +38,29 @@ const upload = multer({
 router.route("/myInfo").get(verify, async (req, res) => {
   try {
     email = req.user.email;
-    const doc = await user.findOne({ email });
-    if (doc) {
-      let myInfo = {
-        name: doc.name,
-        email: doc.email,
-        id: doc._id,
-        phone: doc.phone,
-        role: doc.role,
-        profile_picture: doc.profile_picture,
-      };
-      res.status(200).send({ message: myInfo, success: true });
-    } else {
-      res.send({ message: "Given user does not exists", success: false });
+    const myInfo= await getUserInfo(email);
+    if(myInfo.success){
+      res.status(200).send({ message: myInfo.doc , success: true });
+    }else{
+      res.status(404).send({ message: "Given user does not exists", success: false });
     }
   } catch (err) {
-    res.send({ message: "Error occured check your internet", success: false });
+    res.status(500).send({ message: "Error occured check your internet", success: false });
   }
 });
+
+
 
 //signup route
 router.route("/add").post(upload, async (req, res) => {
   try {
-    const name = req.body.name;
-    const email = req.body.email.toLowerCase();
-    const password = await bcrypt.hash(req.body.password, 10);
-
-    const doc = await user.findOne({ email }).exec();
-    if (doc) {
-      return res
-        .status(400)
-        .send({ message: "Account already exists!", success: false });
+    let responseData= await createUser(req);  
+    if(responseData.success){
+      res.status(201).send(responseData);
+    }else{
+      res.status(400).send(responseData);
     }
-    let newUser;
-    if (req.body.phone) {
-      const phone = req.body.phone;
-      if (req.file) {
-        let profile_picture = req.file.filename;
-        newUser = new user({ name, email, password, phone, profile_picture });
-      } else {
-        newUser = new user({ name, email, password, phone });
-      }
-    } else {
-      if (req.file) {
-        let profile_picture = req.file.filename;
-        newUser = new user({ name, email, password, profile_picture });
-      } else {
-        newUser = new user({ name, email, password });
-      }
-    }
-    newUser
-      .save()
-      .then(() => res.send({ message: "user added!", success: true }))
-      .catch((err) =>
-        res
-          .status(400)
-          .json({ message: "Error while saving the new user", success: false })
-      );
-  } catch (err) {
+  }catch (err) {
     return res
       .status(400)
       .send({ message: "Error occured check your internet", success: false });
@@ -102,30 +69,19 @@ router.route("/add").post(upload, async (req, res) => {
 
 //login route
 router.route("/login").post(async (req, res) => {
-  const email = req.body.email.toLowerCase();
-  const password = req.body.password;
-
-  const doc = await user.findOne({ email }).exec();
-  if (!doc) {
+  try{
+    const email = req.body.email.toLowerCase();
+    const password = req.body.password;
+    const responseData=await loginUser(email,password);
+    if(responseData.success){
+      res.status(200).send(responseData);
+    }else{
+      res.status(400).send(responseData)
+    }
+  }catch(err){
     return res
       .status(400)
-      .send({ message: "Incorrect password/email", success: false });
-  }
-
-  const passwordCheck = bcrypt.compareSync(password, doc.password);
-  if (!passwordCheck) {
-    return res
-      .status(400)
-      .send({ message: "Incorrect password", success: false });
-  } else {
-    const token = jwt.sign(
-      { id: doc._id, email: doc.email },
-      process.env.ACCESS_TOKEN_SECRET
-    );
-    return res.status(200).send({
-      message: { role: doc.role, name: doc.name, token: token },
-      success: true,
-    });
+      .send({ message: "Error occured check your internet", success: false });
   }
 });
 
