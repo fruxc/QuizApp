@@ -28,7 +28,7 @@ const Leaderboard = (props) => {
   let user;
   let quizId = props.quizId;
   try {
-    if (props.location.state.users !== undefined) {
+    if (props.state !== undefined || props.location !== undefined) {
       user = props.location.state.users;
     }
   } catch (e) {
