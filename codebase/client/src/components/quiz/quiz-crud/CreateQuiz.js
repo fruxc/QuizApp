@@ -56,9 +56,11 @@ export default function CreateQuiz(props) {
       seconds: "",
     },
   };
-  if (props !== null || props !== undefined) {
+  if (props.location.state !== undefined) {
+    console.log("props", props.location.state);
     quizData = props.location.state.quizData;
   }
+  console.log("quizData", quizData);
   const [title, setTitle] = React.useState(quizData.title);
   const [description, setDescription] = React.useState(quizData.description);
   const [category, setCategory] = React.useState(quizData.category);

@@ -51,11 +51,11 @@ const useStyles = makeStyles((theme) => ({
 
 const Quiz = (props) => {
   let quizData;
-  if (props !== null || props !== undefined) {
+  if (props.location.state !== undefined) {
     quizData = props.location.state.quizData;
   }
   let user;
-  if (props !== null || props !== undefined) {
+  if (props.location.state !== undefined) {
     user = props.location.state.user;
   }
   const classes = useStyles();

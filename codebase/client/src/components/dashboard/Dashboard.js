@@ -201,10 +201,7 @@ export default function Dashboard({ user, authenticated }) {
                 size="large"
                 variant="contained"
                 component={Link}
-                to={{
-                  pathname: "/add-quiz",
-                  state: {},
-                }}
+                to={"/add-quiz"}
               >
                 <AddIcon />
               </Button>

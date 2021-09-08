@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Profile(props) {
   const classes = useStyles();
   let user;
-  if (props !== null || props !== undefined) {
+  if (props.location.state !== undefined) {
     user = props.location.state.users;
   }
 

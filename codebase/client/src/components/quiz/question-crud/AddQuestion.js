@@ -38,7 +38,7 @@ export default function AddQuestion(props) {
     answer: "",
   };
   let quizId = "";
-  if (props !== null || props !== undefined) {
+  if (props.location.state !== undefined) {
     questionData = props.location.state.questionData;
     quizId = props.location.state.quizId;
   }
