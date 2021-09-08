@@ -9,6 +9,10 @@ import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
 import CardActions from "@material-ui/core/CardActions";
 import TextField from "@material-ui/core/TextField";
+import Accordion from "@material-ui/core/Accordion";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { Link } from "react-router-dom";
 import { getQuizzes } from "../../services/QuizService";
 import { deleteQuiz } from "../../services/QuizService";
@@ -83,10 +87,36 @@ export default function Dashboard({ user, authenticated }) {
       filteredQuizzes = [...quizzes];
     }
   }
-
   const sortedQuizzes = filteredQuizzes.sort(
     (a, b) => new Date(b.created_at) - new Date(a.created_at)
   );
+  let categoryWiseQuizzes = [];
+  if (sortedQuizzes !== null) {
+    let allCategories = [];
+    sortedQuizzes
+      .map((quiz) => quiz.category)
+      .forEach((category) => allCategories.push(category));
+    let uniqueCategory = allCategories.filter(
+      (v, i, arr) => arr.indexOf(v, i + 1) === -1
+    );
+    uniqueCategory.forEach((u) => {
+      sortedQuizzes.forEach((quiz) => {
+        if (quiz.category.includes(u)) {
+          if (!categoryWiseQuizzes.find(({ category }) => category === u)) {
+            categoryWiseQuizzes.push({ category: u, quizzes: [quiz] });
+          } else {
+            const index = categoryWiseQuizzes.findIndex(
+              (obj) => obj.category === u
+            );
+            categoryWiseQuizzes[index] = {
+              category: categoryWiseQuizzes[index].category,
+              quizzes: categoryWiseQuizzes[index].quizzes.concat(quiz),
+            };
+          }
+        }
+      });
+    });
+  }
 
   const handleDelete = async (quizId) => {
     let response;
@@ -207,6 +237,105 @@ export default function Dashboard({ user, authenticated }) {
               </Button>
             </Grid>
           )}
+        </Grid>
+        <Grid>
+          <Typography className={classes.title} color="primary">
+            Categories:
+          </Typography>
+          {categoryWiseQuizzes !== null &&
+            categoryWiseQuizzes.map((quiz, index) => (
+              <Accordion key={index}>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Typography className={classes.heading}>
+                    {quiz.category}
+                  </Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  {quiz !== null &&
+                    quiz.quizzes.map((quiz) => (
+                      <Grid
+                        item
+                        xs={12}
+                        sm={4}
+                        className={classes.grid}
+                        key={quiz._id}
+                      >
+                        <Card>
+                          <CardContent>
+                            <Typography
+                              variant="h5"
+                              component="h3"
+                              className={classes.title}
+                            >
+                              {quiz.title}
+                            </Typography>
+                            <Typography className={classes.featureList}>
+                              {quiz.description}
+                            </Typography>
+                            <Typography className={classes.featureList}>
+                              Category: {quiz.category}
+                            </Typography>
+                          </CardContent>
+                          {user && authenticated ? (
+                            <CardActions className={classes.cardActions}>
+                              <Link
+                                to={{
+                                  pathname: "/quiz",
+                                  state: { quizData: quiz, user: user },
+                                }}
+                              >
+                                <Button
+                                  color="primary"
+                                  size="large"
+                                  variant="contained"
+                                >
+                                  Attempt Quiz
+                                </Button>
+                              </Link>
+                            </CardActions>
+                          ) : (
+                            <CardActions className={classes.cardActions}>
+                              <Typography className={classes.featureList}>
+                                Please login or sign up to attempt quiz
+                              </Typography>
+                            </CardActions>
+                          )}
+                          {user && authenticated && user.role === "admin" && (
+                            <CardActions className={classes.cardActions}>
+                              <Link
+                                to={{
+                                  pathname: "/add-quiz",
+                                  state: { quizData: quiz },
+                                }}
+                              >
+                                <Button
+                                  color="primary"
+                                  size="large"
+                                  variant="contained"
+                                >
+                                  Edit
+                                </Button>
+                              </Link>
+                              <Button
+                                color="secondary"
+                                size="large"
+                                variant="contained"
+                                onClick={() => handleDelete(quiz._id)}
+                              >
+                                Delete
+                              </Button>
+                            </CardActions>
+                          )}
+                        </Card>
+                      </Grid>
+                    ))}
+                </AccordionDetails>
+              </Accordion>
+            ))}
         </Grid>
       </Container>
     </div>

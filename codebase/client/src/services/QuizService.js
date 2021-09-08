@@ -60,6 +60,7 @@ const updateQuiz = async (data, quizId) => {
     }
   }
 };
+
 const addQuestion = async (data) => {
   const quizId = localStorage.getItem("quiz_id");
   try {

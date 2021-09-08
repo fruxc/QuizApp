@@ -27,8 +27,12 @@ const Leaderboard = (props) => {
   const [leaderboard, setLeaderboard] = useState([]);
   let user;
   let quizId;
+  console.log(props);
   try {
-    if (props.state !== undefined || props.location !== undefined) {
+    if (
+      props.quizId === undefined &&
+      (props.state !== undefined || props.location.state !== undefined)
+    ) {
       user = props.location.state.users;
     }
   } catch (e) {
@@ -50,7 +54,7 @@ const Leaderboard = (props) => {
     } else {
       getLeaderboardForAll();
     }
-  }, []);
+  }, [props]);
   const getLeaderboardByQuizId = async () => {
     let response;
     try {

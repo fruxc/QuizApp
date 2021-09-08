@@ -57,10 +57,8 @@ export default function CreateQuiz(props) {
     },
   };
   if (props.location.state !== undefined) {
-    console.log("props", props.location.state);
     quizData = props.location.state.quizData;
   }
-  console.log("quizData", quizData);
   const [title, setTitle] = React.useState(quizData.title);
   const [description, setDescription] = React.useState(quizData.description);
   const [category, setCategory] = React.useState(quizData.category);
@@ -123,7 +121,7 @@ export default function CreateQuiz(props) {
         <Avatar className={classes.avatar}>
           <CreateIcon />
         </Avatar>
-        {quizData._id ? (
+        {quizData._id === undefined ? (
           <Typography component="h1" variant="h5">
             Create Quiz
           </Typography>
