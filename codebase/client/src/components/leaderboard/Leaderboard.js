@@ -26,7 +26,7 @@ const Leaderboard = (props) => {
   const classes = useStyles();
   const [leaderboard, setLeaderboard] = useState([]);
   let user;
-  let quizId = props.quizId;
+  let quizId;
   try {
     if (props.state !== undefined || props.location !== undefined) {
       user = props.location.state.users;

@@ -44,7 +44,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Profile(props) {
   const classes = useStyles();
-  const user = props.location.state.users;
+  let user;
+  if (props !== null || props !== undefined) {
+    user = props.location.state.users;
+  }
 
   return (
     <Container component="section" maxWidth="lg" className={classes.root}>

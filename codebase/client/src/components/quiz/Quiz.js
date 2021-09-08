@@ -50,7 +50,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Quiz = (props) => {
-  const quizData = props.location.state.quizData;
+  let quizData;
+  if (props !== null || props !== undefined) {
+    quizData = props.location.state.quizData;
+  }
+  let user;
+  if (props !== null || props !== undefined) {
+    user = props.location.state.user;
+  }
   const classes = useStyles();
   const [quiz, setQuiz] = useState([]);
   const [number, setNumber] = useState(0);
@@ -117,10 +124,10 @@ const Quiz = (props) => {
   const submitResult = async () => {
     const data = {
       quizId: quizData._id,
-      name: props.location.state.user.name,
+      name: user.name,
       title: quizData.title,
       Score: score,
-      userId: props.location.state.user.id,
+      userId: user.id,
     };
     try {
       await submitAttempt(data);
@@ -159,9 +166,9 @@ const Quiz = (props) => {
           <Result
             score={score}
             quizName={quizData.title}
-            name={props.location.state.user.name}
+            name={user.name}
             quizData={quizData}
-            user={props.location.state.user}
+            user={user}
           />
         )}
     </Container>
