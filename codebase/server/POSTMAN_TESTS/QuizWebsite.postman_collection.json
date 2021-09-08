@@ -15,12 +15,12 @@
 					"formdata": [
 						{
 							"key": "name",
-							"value": "sushantt",
+							"value": "sss",
 							"type": "text"
 						},
 						{
 							"key": "email",
-							"value": "sss@gmail.comm",
+							"value": "ss@gmail.com",
 							"type": "text"
 						},
 						{
@@ -31,7 +31,7 @@
 						{
 							"key": "profile_picture",
 							"type": "file",
-							"src": "/C:/Users/Ankit/Desktop/sushant/Projects/Quantiphi/week-2/to-do/readme_resources/1.png"
+							"src": "/C:/Users/Ankit/Desktop/sushant/Projects/Quantiphi/week-2/to-do/readme_resources/7.png"
 						}
 					],
 					"options": {
@@ -64,7 +64,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{   \r\n    \"email\":\"sss@gmail.com\",\r\n    \"password\":\"asdfgh\"\r\n}",
+					"raw": "{   \r\n    \"email\":\"ss@gmail.com\",\r\n    \"password\":\"asdfgh\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -105,7 +105,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"title\":\"Node.js basic quiz dummy\",\r\n    \"description\":\"Following quiz provides Multiple Choice Questions (MCQs) related to Node.js Framework.\",\r\n    \"category\":\"Backend\",\r\n    \"duration\":{\r\n        \"minutes\":20\r\n    }\r\n}",
+					"raw": "{\r\n     \"title\":\"s\",\r\n    \"description\":\"Following quiz provides Multiple Choice Questions (MCQs) related to Node.js Framework.\",\r\n    \"category\":\"Backend\",\r\n    \"duration\":{\r\n        \"minutes\":20\r\n    }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -113,7 +113,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/v1/quizes/",
+					"raw": "http://localhost:5000/api/v1/quizzes/",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -122,7 +122,7 @@
 					"path": [
 						"api",
 						"v1",
-						"quizes",
+						"quizzes",
 						""
 					]
 				}
@@ -145,7 +145,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/api/v1/quizes/61377d39597110a676065e7d",
+					"raw": "http://localhost:5000/api/v1/quizzes/61391152333e8befe79e9207",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -154,8 +154,8 @@
 					"path": [
 						"api",
 						"v1",
-						"quizes",
-						"61377d39597110a676065e7d"
+						"quizzes",
+						"61391152333e8befe79e9207"
 					]
 				}
 			},
@@ -178,7 +178,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"title\":\"Node.js basic quiz dummy\",\r\n    \"description\":\"Following quiz provides Multiple Choice Questions (MCQs) related to Node.js Framework.\",\r\n    \"category\":\"Backend Development\",\r\n    \"duration\":{\r\n        \"minutes\":15\r\n    }\r\n}",
+					"raw": "{\r\n    \"title\":\"s updated twicee\",\r\n    \"description\":\"Following quiz provides Multiple Choice Questions (MCQs) related to Node.js Framework.\",\r\n    \"category\":\"Backend Development\",\r\n    \"duration\":{\r\n        \"minutes\":13\r\n    }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -186,7 +186,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/v1/quizes/61377d39597110a676065e7d",
+					"raw": "http://localhost:5000/api/v1/quizzes/61391152333e8befe79e9207",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -195,8 +195,8 @@
 					"path": [
 						"api",
 						"v1",
-						"quizes",
-						"61377d39597110a676065e7d"
+						"quizzes",
+						"61391152333e8befe79e9207"
 					]
 				}
 			},
@@ -218,7 +218,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/api/v1/quizes/613228871853d54f433e5808",
+					"raw": "http://localhost:5000/api/v1/quizzes/61391044333e8befe79e9200",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -227,8 +227,8 @@
 					"path": [
 						"api",
 						"v1",
-						"quizes",
-						"613228871853d54f433e5808"
+						"quizzes",
+						"61391044333e8befe79e9200"
 					]
 				}
 			},
@@ -251,7 +251,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"question\":\"What is Express?\",\r\n    \"answers\":[\r\n        \"Express is a application framework that provides a robust set of features to develop desktop based applications.\",\r\n        \"Express is a minimal and flexible Node.js web application framework that provides a robust set of features to develop web and mobile applications\",\r\n        \"Both of the above.\",\r\n        \"None of the above.\"\r\n    ],\r\n    \"answer\":\"Express is a minimal and flexible Node.js web application framework that provides a robust set of features to develop web and mobile applications.\"\r\n}",
+					"raw": "{\r\n    \"question\":\"What is Express? one more time jfasa\",\r\n    \"answers\":[\r\n        \"Express is a application framework that provides a robust set of features to develop desktop based applications.\",\r\n        \"Express is a minimal and flexible Node.js web application framework that provides a robust set of features to develop web and mobile applications\",\r\n        \"Both of the above.\",\r\n        \"None of the above.\"\r\n    ],\r\n    \"answer\":\"Express is a minimal and flexible Node.js web application framework that provides a robust set of features to develop web and mobile applications.\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -259,7 +259,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/v1/quizes/61377d39597110a676065e7d/questions",
+					"raw": "http://localhost:5000/api/v1/quizzes/61391152333e8befe79e9207/questions",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -268,8 +268,8 @@
 					"path": [
 						"api",
 						"v1",
-						"quizes",
-						"61377d39597110a676065e7d",
+						"quizzes",
+						"61391152333e8befe79e9207",
 						"questions"
 					]
 				}
@@ -334,7 +334,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"question\":\"What is Express updated the question ?\",\r\n    \"answers\":[\r\n        \"Express is a application framework that provides a robust set of features to develop desktop based applications.\",\r\n        \"Express is a minimal and flexible Node.js web application framework that provides a robust set of features to develop web and mobile applications\",\r\n        \"Both of the above.\",\r\n        \"None of the above.\"\r\n    ],\r\n    \"answer\":\"Express is a minimal and flexible Node.js web application framework that provides a robust set of features to develop web and mobile applications.\"\r\n}",
+					"raw": "{\r\n    \"question\":\"sample updated in ty quiz ?\",\r\n    \"answers\":[\r\n        \"Express is a application framework that provides a robust set of features to develop desktop based applications.\",\r\n        \"Express is a minimal and flexible Node.js web application framework that provides a robust set of features to develop web and mobile applications\",\r\n        \"Both of the above.\",\r\n        \"None of the above.\"\r\n    ],\r\n    \"answer\":\"Express is a minimal and flexible Node.js web application framework that provides a robust set of features to develop web and mobile applications.\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -342,7 +342,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/v1/quizes/61377d39597110a676065e7d/questions/61377d6d597110a676065e80",
+					"raw": "http://localhost:5000/api/v1/quizzes/61391152333e8befe79e9207/questions/61391197333e8befe79e920c",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -351,10 +351,10 @@
 					"path": [
 						"api",
 						"v1",
-						"quizes",
-						"61377d39597110a676065e7d",
+						"quizzes",
+						"61391152333e8befe79e9207",
 						"questions",
-						"61377d6d597110a676065e80"
+						"61391197333e8befe79e920c"
 					]
 				}
 			},
@@ -376,7 +376,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/api/v1/quizes/61324c66ff45afe94e79c2f8/questions/61324c93ff45afe94e79c2fc",
+					"raw": "http://localhost:5000/api/v1/quizzes/61391152333e8befe79e9207/questions/613911da333e8befe79e9217",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -385,10 +385,10 @@
 					"path": [
 						"api",
 						"v1",
-						"quizes",
-						"61324c66ff45afe94e79c2f8",
+						"quizzes",
+						"61391152333e8befe79e9207",
 						"questions",
-						"61324c93ff45afe94e79c2fc"
+						"613911da333e8befe79e9217"
 					]
 				}
 			},
@@ -397,20 +397,10 @@
 		{
 			"name": "get list of all quizes",
 			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{jwt}}",
-							"type": "string"
-						}
-					]
-				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/api/v1/quizes/",
+					"raw": "http://localhost:5000/api/v1/quizzes/",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -419,7 +409,7 @@
 					"path": [
 						"api",
 						"v1",
-						"quizes",
+						"quizzes",
 						""
 					]
 				}
@@ -434,7 +424,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "{{jwt}}",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMzg1YzA2NzEwNGUxYjU1NDVjODAzZCIsImVtYWlsIjoic3NzQGdtYWlsLmNvbSIsImlhdCI6MTYzMTEwNDg5MH0.3WqHHFnSJKrMbKTyqMylpk2jl6rrFxtG-pt_PdCfcKE",
 							"type": "string"
 						}
 					]
@@ -508,7 +498,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"quizId\":\"613701e2e3233fb6725fd817\",\r\n    \"name\":\"sushantt\",\r\n    \"title\":\"first Quiz\",\r\n    \"Score\":10,\r\n    \"userId\":\"6136471298abcc76bfc60d3f\"\r\n}",
+					"raw": "{\r\n    \"quizId\":\"6138d56e97a301b3cebc784c\",\r\n    \"name\":\"sss\",\r\n    \"title\":\"Dummy Python\",\r\n    \"Score\":8,\r\n    \"userId\":\"6138c34fd8fbaf75c6b59bd9\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -548,7 +538,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:5000/api/v1/quizResponse/attemptedQuiz/6136471298abcc76bfc60d3f",
+					"raw": "http://localhost:5000/api/v1/quizResponse/attemptedQuiz/61385c067104e1b5545c803d",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -559,7 +549,7 @@
 						"v1",
 						"quizResponse",
 						"attemptedQuiz",
-						"6136471298abcc76bfc60d3f"
+						"61385c067104e1b5545c803d"
 					]
 				}
 			},

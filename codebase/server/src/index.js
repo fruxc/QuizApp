@@ -27,10 +27,10 @@ mongoose.connection.once("open", () => {
 app.use(express.static('public'));
 
 const userRouter = require("./routes/v1/user");
-const quizRouter = require("./routes/v1/quizes");
+const quizRouter = require("./routes/v1/quizzes");
 const quizResponseRouter = require("./routes/v1/quizResponse");
 app.use("/api/v1/user", userRouter);
-app.use("/api/v1/quizes", quizRouter);
+app.use("/api/v1/quizzes", quizRouter);
 app.use("/api/v1/quizResponse", quizResponseRouter);
 
 app.listen(port, console.log(`listing at port ${port}`));

@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const quizResponse = new Schema({
   quizId: {
     type: Schema.Types.ObjectId,
-    ref: 'quizes',
+    ref: 'quizzes',
     required: true
   },
   
