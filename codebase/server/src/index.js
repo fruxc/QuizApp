@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const bodyParser= require('body-parser');
+const bodyParser = require("body-parser");
 require("dotenv").config();
 
 const morgan = require("morgan");
@@ -24,7 +24,7 @@ mongoose.connection.once("open", () => {
   console.log("connection established successfully");
 });
 
-app.use(express.static('public'));
+app.use(express.static("public"));
 
 const userRouter = require("./routes/v1/user");
 const quizRouter = require("./routes/v1/quizzes");

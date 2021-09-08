@@ -1,581 +1,499 @@
 {
-	"info": {
-		"_postman_id": "c817a156-5aff-47cb-9b5c-9df1c46d12f6",
-		"name": "QuizWebsite",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "register user",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "name",
-							"value": "sss",
-							"type": "text"
-						},
-						{
-							"key": "email",
-							"value": "ss@gmail.com",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "asdfgh",
-							"type": "text"
-						},
-						{
-							"key": "profile_picture",
-							"type": "file",
-							"src": "/C:/Users/Ankit/Desktop/sushant/Projects/Quantiphi/week-2/to-do/readme_resources/7.png"
-						}
-					],
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:5000/api/v1/user/add",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"api",
-						"v1",
-						"user",
-						"add"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "login of user",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{   \r\n    \"email\":\"ss@gmail.com\",\r\n    \"password\":\"asdfgh\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:5000/api/v1/user/login",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"api",
-						"v1",
-						"user",
-						"login"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "add a quiz ",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{jwt}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n     \"title\":\"s\",\r\n    \"description\":\"Following quiz provides Multiple Choice Questions (MCQs) related to Node.js Framework.\",\r\n    \"category\":\"Backend\",\r\n    \"duration\":{\r\n        \"minutes\":20\r\n    }\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:5000/api/v1/quizzes/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"api",
-						"v1",
-						"quizzes",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "getting quiz using quizId",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{jwt}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:5000/api/v1/quizzes/61391152333e8befe79e9207",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"api",
-						"v1",
-						"quizzes",
-						"61391152333e8befe79e9207"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "update quiz details except questions",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{jwt}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"title\":\"s updated twicee\",\r\n    \"description\":\"Following quiz provides Multiple Choice Questions (MCQs) related to Node.js Framework.\",\r\n    \"category\":\"Backend Development\",\r\n    \"duration\":{\r\n        \"minutes\":13\r\n    }\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:5000/api/v1/quizzes/61391152333e8befe79e9207",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"api",
-						"v1",
-						"quizzes",
-						"61391152333e8befe79e9207"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "delete quiz with quizId",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{jwt}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:5000/api/v1/quizzes/61391044333e8befe79e9200",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"api",
-						"v1",
-						"quizzes",
-						"61391044333e8befe79e9200"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "adding question to the quiz",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{jwt}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"question\":\"What is Express? one more time jfasa\",\r\n    \"answers\":[\r\n        \"Express is a application framework that provides a robust set of features to develop desktop based applications.\",\r\n        \"Express is a minimal and flexible Node.js web application framework that provides a robust set of features to develop web and mobile applications\",\r\n        \"Both of the above.\",\r\n        \"None of the above.\"\r\n    ],\r\n    \"answer\":\"Express is a minimal and flexible Node.js web application framework that provides a robust set of features to develop web and mobile applications.\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:5000/api/v1/quizzes/61391152333e8befe79e9207/questions",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"api",
-						"v1",
-						"quizzes",
-						"61391152333e8befe79e9207",
-						"questions"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "get question using question id and quiz id",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{jwt}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://localhost:5000/api/v1/quizes/61377d39597110a676065e7d/questions/61377d6d597110a676065e80",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"api",
-						"v1",
-						"quizes",
-						"61377d39597110a676065e7d",
-						"questions",
-						"61377d6d597110a676065e80"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "update a single question using question id and quiz id",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{jwt}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"question\":\"sample updated in ty quiz ?\",\r\n    \"answers\":[\r\n        \"Express is a application framework that provides a robust set of features to develop desktop based applications.\",\r\n        \"Express is a minimal and flexible Node.js web application framework that provides a robust set of features to develop web and mobile applications\",\r\n        \"Both of the above.\",\r\n        \"None of the above.\"\r\n    ],\r\n    \"answer\":\"Express is a minimal and flexible Node.js web application framework that provides a robust set of features to develop web and mobile applications.\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:5000/api/v1/quizzes/61391152333e8befe79e9207/questions/61391197333e8befe79e920c",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"api",
-						"v1",
-						"quizzes",
-						"61391152333e8befe79e9207",
-						"questions",
-						"61391197333e8befe79e920c"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "delete a question in quiz using question Id",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{jwt}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:5000/api/v1/quizzes/61391152333e8befe79e9207/questions/613911da333e8befe79e9217",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"api",
-						"v1",
-						"quizzes",
-						"61391152333e8befe79e9207",
-						"questions",
-						"613911da333e8befe79e9217"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "get list of all quizes",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:5000/api/v1/quizzes/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"api",
-						"v1",
-						"quizzes",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "get logged in users info",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMzg1YzA2NzEwNGUxYjU1NDVjODAzZCIsImVtYWlsIjoic3NzQGdtYWlsLmNvbSIsImlhdCI6MTYzMTEwNDg5MH0.3WqHHFnSJKrMbKTyqMylpk2jl6rrFxtG-pt_PdCfcKE",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:5000/api/v1/user/myInfo",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"api",
-						"v1",
-						"user",
-						"myInfo"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "get leaderboard for a quiz",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{jwt}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:5000/api/v1/quizResponse/leaderboard/613701e2e3233fb6725fd817",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"api",
-						"v1",
-						"quizResponse",
-						"leaderboard",
-						"613701e2e3233fb6725fd817"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Submit quiz response",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{jwt}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"quizId\":\"6138d56e97a301b3cebc784c\",\r\n    \"name\":\"sss\",\r\n    \"title\":\"Dummy Python\",\r\n    \"Score\":8,\r\n    \"userId\":\"6138c34fd8fbaf75c6b59bd9\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:5000/api/v1/quizResponse/submitResponse",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"api",
-						"v1",
-						"quizResponse",
-						"submitResponse"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "get quiz Responses for a particular user",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{jwt}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:5000/api/v1/quizResponse/attemptedQuiz/61385c067104e1b5545c803d",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"api",
-						"v1",
-						"quizResponse",
-						"attemptedQuiz",
-						"61385c067104e1b5545c803d"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "overall leaderboard user wise(no auth required)",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:5000/api/v1/quizResponse/leaderboard",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"api",
-						"v1",
-						"quizResponse",
-						"leaderboard"
-					]
-				}
-			},
-			"response": []
-		}
-	]
+  "info": {
+    "_postman_id": "c817a156-5aff-47cb-9b5c-9df1c46d12f6",
+    "name": "QuizWebsite",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "register user",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "name",
+              "value": "sss",
+              "type": "text"
+            },
+            {
+              "key": "email",
+              "value": "ss@gmail.com",
+              "type": "text"
+            },
+            {
+              "key": "password",
+              "value": "asdfgh",
+              "type": "text"
+            },
+            {
+              "key": "profile_picture",
+              "type": "file",
+              "src": "/C:/Users/Ankit/Desktop/sushant/Projects/Quantiphi/week-2/to-do/readme_resources/7.png"
+            }
+          ],
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/v1/user/add",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "v1", "user", "add"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "login of user",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{   \r\n    \"email\":\"ss@gmail.com\",\r\n    \"password\":\"asdfgh\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/v1/user/login",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "v1", "user", "login"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "add a quiz ",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{jwt}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n     \"title\":\"s\",\r\n    \"description\":\"Following quiz provides Multiple Choice Questions (MCQs) related to Node.js Framework.\",\r\n    \"category\":\"Backend\",\r\n    \"duration\":{\r\n        \"minutes\":20\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/v1/quizzes/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "v1", "quizzes", ""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getting quiz using quizId",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{jwt}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/v1/quizzes/61391152333e8befe79e9207",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "v1", "quizzes", "61391152333e8befe79e9207"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "update quiz details except questions",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{jwt}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"title\":\"s updated twicee\",\r\n    \"description\":\"Following quiz provides Multiple Choice Questions (MCQs) related to Node.js Framework.\",\r\n    \"category\":\"Backend Development\",\r\n    \"duration\":{\r\n        \"minutes\":13\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/v1/quizzes/61391152333e8befe79e9207",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "v1", "quizzes", "61391152333e8befe79e9207"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "delete quiz with quizId",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{jwt}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/v1/quizzes/61391044333e8befe79e9200",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "v1", "quizzes", "61391044333e8befe79e9200"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "adding question to the quiz",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{jwt}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"question\":\"What is Express? one more time jfasa\",\r\n    \"answers\":[\r\n        \"Express is a application framework that provides a robust set of features to develop desktop based applications.\",\r\n        \"Express is a minimal and flexible Node.js web application framework that provides a robust set of features to develop web and mobile applications\",\r\n        \"Both of the above.\",\r\n        \"None of the above.\"\r\n    ],\r\n    \"answer\":\"Express is a minimal and flexible Node.js web application framework that provides a robust set of features to develop web and mobile applications.\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/v1/quizzes/61391152333e8befe79e9207/questions",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "quizzes",
+            "61391152333e8befe79e9207",
+            "questions"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get question using question id and quiz id",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{jwt}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/v1/quizes/61377d39597110a676065e7d/questions/61377d6d597110a676065e80",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "quizes",
+            "61377d39597110a676065e7d",
+            "questions",
+            "61377d6d597110a676065e80"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "update a single question using question id and quiz id",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{jwt}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"question\":\"sample updated in ty quiz ?\",\r\n    \"answers\":[\r\n        \"Express is a application framework that provides a robust set of features to develop desktop based applications.\",\r\n        \"Express is a minimal and flexible Node.js web application framework that provides a robust set of features to develop web and mobile applications\",\r\n        \"Both of the above.\",\r\n        \"None of the above.\"\r\n    ],\r\n    \"answer\":\"Express is a minimal and flexible Node.js web application framework that provides a robust set of features to develop web and mobile applications.\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/v1/quizzes/61391152333e8befe79e9207/questions/61391197333e8befe79e920c",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "quizzes",
+            "61391152333e8befe79e9207",
+            "questions",
+            "61391197333e8befe79e920c"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "delete a question in quiz using question Id",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{jwt}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/v1/quizzes/61391152333e8befe79e9207/questions/613911da333e8befe79e9217",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "quizzes",
+            "61391152333e8befe79e9207",
+            "questions",
+            "613911da333e8befe79e9217"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get list of all quizes",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/v1/quizzes/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "v1", "quizzes", ""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get logged in users info",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMzg1YzA2NzEwNGUxYjU1NDVjODAzZCIsImVtYWlsIjoic3NzQGdtYWlsLmNvbSIsImlhdCI6MTYzMTEwNDg5MH0.3WqHHFnSJKrMbKTyqMylpk2jl6rrFxtG-pt_PdCfcKE",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/v1/user/myInfo",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "v1", "user", "myInfo"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get leaderboard for a quiz",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{jwt}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/v1/quizResponse/leaderboard/613701e2e3233fb6725fd817",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "quizResponse",
+            "leaderboard",
+            "613701e2e3233fb6725fd817"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Submit quiz response",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{jwt}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"quizId\":\"6138d56e97a301b3cebc784c\",\r\n    \"name\":\"sss\",\r\n    \"title\":\"Dummy Python\",\r\n    \"Score\":8,\r\n    \"userId\":\"6138c34fd8fbaf75c6b59bd9\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/v1/quizResponse/submitResponse",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "v1", "quizResponse", "submitResponse"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get quiz Responses for a particular user",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{jwt}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/v1/quizResponse/attemptedQuiz/61385c067104e1b5545c803d",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": [
+            "api",
+            "v1",
+            "quizResponse",
+            "attemptedQuiz",
+            "61385c067104e1b5545c803d"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "overall leaderboard user wise(no auth required)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/v1/quizResponse/leaderboard",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["api", "v1", "quizResponse", "leaderboard"]
+        }
+      },
+      "response": []
+    }
+  ]
 }

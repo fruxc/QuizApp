@@ -6,34 +6,33 @@ const userSchema = new Schema({
   name: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
   email: {
     type: String,
     unique: true,
     required: true,
     trim: true,
-    lowercase: true
+    lowercase: true,
   },
   password: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
-  phone:{
-    type:String,
-    trim:true,
-    minlength:10,
-    maxlength:10
+  phone: {
+    type: String,
+    trim: true,
+    minlength: 10,
+    maxlength: 10,
   },
   role: {
     type: String,
-    default: "user"
+    default: "user",
   },
-  profile_picture:{
-    type:String
-  }
-
+  profile_picture: {
+    type: String,
+  },
 });
 
 const user = mongoose.model("user", userSchema);

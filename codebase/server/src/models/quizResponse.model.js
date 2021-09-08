@@ -5,29 +5,29 @@ const Schema = mongoose.Schema;
 const quizResponse = new Schema({
   quizId: {
     type: Schema.Types.ObjectId,
-    ref: 'quizzes',
-    required: true
+    ref: "quizzes",
+    required: true,
   },
-  
+
   title: {
     type: String,
-    required: true
+    required: true,
   },
   name: {
-  type: String,
-  required: true,
-  trim: true
+    type: String,
+    required: true,
+    trim: true,
   },
-  Score : {
+  Score: {
     type: Number,
     required: true,
   },
-  userId:{
+  userId: {
     type: Schema.Types.ObjectId,
-    ref: 'user',
-    required: true
+    ref: "user",
+    required: true,
   },
-  allScores:[]
+  allScores: [],
 });
 
 const Response = mongoose.model("Response", quizResponse);

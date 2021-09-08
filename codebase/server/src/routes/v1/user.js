@@ -6,7 +6,11 @@ const verify = require("../../middleware/verifyToken");
 const multer = require("multer");
 const path = require("path");
 
-const { getUserInfo,createUser,loginUser}= require('../../services/users.services')
+const {
+  getUserInfo,
+  createUser,
+  loginUser,
+} = require("../../services/users.services");
 
 //Set up multer
 const allowedFileTypes = /jpeg|jpg|png|jfif/;
@@ -38,50 +42,52 @@ const upload = multer({
 router.route("/myInfo").get(verify, async (req, res) => {
   try {
     email = req.user.email;
-    const myInfo= await getUserInfo(email);
-    if(myInfo.success){
-      res.status(200).send({ message: myInfo.doc , success: true });
-    }else{
-      res.status(404).send({ message: "Given user does not exists", success: false });
+    const myInfo = await getUserInfo(email);
+    if (myInfo.success) {
+      res.status(200).send({ message: myInfo.doc, success: true });
+    } else {
+      res
+        .status(404)
+        .send({ message: "Given user does not exists", success: false });
     }
   } catch (err) {
-    res.status(500).send({ message: "Error occured check your internet", success: false });
+    res
+      .status(500)
+      .send({ message: "Error occurred check your internet", success: false });
   }
 });
-
-
 
 //signup route
 router.route("/add").post(upload, async (req, res) => {
   try {
-    let responseData= await createUser(req);  
-    if(responseData.success){
+    let responseData = await createUser(req);
+    if (responseData.success) {
       res.status(201).send(responseData);
-    }else{
+    } else {
       res.status(400).send(responseData);
     }
-  }catch (err) {
+  } catch (err) {
     return res
       .status(400)
-      .send({ message: "Error occured check your internet", success: false });
+      .send({ message: "Error occurred check your internet", success: false });
   }
 });
 
 //login route
 router.route("/login").post(async (req, res) => {
-  try{
+  try {
     const email = req.body.email.toLowerCase();
     const password = req.body.password;
-    const responseData=await loginUser(email,password);
-    if(responseData.success){
+    const responseData = await loginUser(email, password);
+    if (responseData.success) {
       res.status(200).send(responseData);
-    }else{
-      res.status(400).send(responseData)
+    } else {
+      res.status(400).send(responseData);
     }
-  }catch(err){
+  } catch (err) {
     return res
       .status(400)
-      .send({ message: "Error occured check your internet", success: false });
+      .send({ message: "Error occurred check your internet", success: false });
   }
 });
 
