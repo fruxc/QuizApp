@@ -22,18 +22,30 @@ const useStyles = makeStyles({
     minWidth: 650,
   },
 });
-const Leaderboard = (props, { quizId }) => {
+const Leaderboard = (props) => {
   const classes = useStyles();
   const [leaderboard, setLeaderboard] = useState([]);
-  let user = null;
-  if (props.location.state.users) {
-    user = props.location.state.users;
+  let user;
+  let quizId = props.quizId;
+  try {
+    if (props) {
+      user = props.location.state.users;
+    }
+  } catch (e) {
+    console.log(e);
   }
+  try {
+    if (props.quizId) {
+      quizId = props.quizId;
+    }
+  } catch (e) {
+    console.log(e);
+  }
+
   useEffect(() => {
     if (quizId) {
       getLeaderboardByQuizId();
-    }
-    if (user) {
+    } else if (user) {
       getLeaderboardByUserId();
     } else {
       getLeaderboardForAll();

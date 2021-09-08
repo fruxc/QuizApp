@@ -64,6 +64,7 @@ const App = () => {
             ) : (
               <Switch>
                 <Route exact path="/login" component={Login} />
+                <Route exact path="/leaderboard" component={Leaderboard} />
                 <Route exact path="/signup" component={SignUp} />
               </Switch>
             )}
