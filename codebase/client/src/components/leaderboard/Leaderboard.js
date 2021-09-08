@@ -28,14 +28,14 @@ const Leaderboard = (props) => {
   let user;
   let quizId = props.quizId;
   try {
-    if (props) {
+    if (props.location.state.users !== undefined) {
       user = props.location.state.users;
     }
   } catch (e) {
     console.log(e);
   }
   try {
-    if (props.quizId) {
+    if (props.quizId !== undefined) {
       quizId = props.quizId;
     }
   } catch (e) {
