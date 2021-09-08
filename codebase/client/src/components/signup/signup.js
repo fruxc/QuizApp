@@ -9,7 +9,7 @@ import {
   Typography,
   makeStyles,
   Container,
-  // Input,
+  Input,
 } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import SignUpService from "../../services/SignupService";
@@ -46,7 +46,7 @@ const SignUp = () => {
   const phoneNumber = React.useRef(null);
   const password = React.useRef(null);
   const confirmPassword = React.useRef(null);
-  // const [file, setFile] = React.useState(null);
+  const [file, setFile] = React.useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,20 +55,20 @@ const SignUp = () => {
       return;
     }
 
-    // const data = new FormData();
-    // data.append("email", email.current.value);
-    // data.append("password", password.current.value);
-    // data.append("name", name.current.value);
-    // data.append("phone", phoneNumber.current.value);
+    const data = new FormData();
+    data.append("email", email.current.value);
+    data.append("password", password.current.value);
+    data.append("name", name.current.value);
+    data.append("phone", phoneNumber.current.value);
 
-    const data = {
-      name: name.current.value,
-      email: email.current.value,
-      password: password.current.value,
-    };
-    // if (file) {
-    //   data.append("profile_picture", file);
-    // }
+    // const data = {
+    //   name: name.current.value,
+    //   email: email.current.value,
+    //   password: password.current.value,
+    // };
+    if (file) {
+      data.append("profile_picture", file);
+    }
     let response;
     try {
       response = await SignUpService(data);
@@ -166,13 +166,13 @@ const SignUp = () => {
             id="confirmPassword"
             autoComplete="current-password"
           />
-          {/* Profile Picture
+          Profile Picture
           <Input
             type="file"
             onChange={(e) => setFile(e.target.files[0])}
             fullWidth
             variant="outlined"
-          /> */}
+          />
           <Button
             type="submit"
             fullWidth

@@ -14,10 +14,10 @@ const useStyles = makeStyles((theme) => ({
   },
   profile: {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
     padding: "20px",
-    margin: "auto",
     justifyContent: "center",
+    alignItems: "center",
   },
   card: {
     height: "400px",
@@ -47,9 +47,15 @@ export default function Profile(props) {
   const user = props.location.state.users;
 
   return (
-    <div className={classes.profile}>
-      <Container component="section" maxWidth="lg" className={classes.root}>
-        <Grid container spacing={3} alignItems="stretch">
+    <Container component="section" maxWidth="lg" className={classes.root}>
+      <div className={classes.profile}>
+        <Grid
+          container
+          spacing={3}
+          direction="column"
+          alignItems="center"
+          justifyContent="center"
+        >
           <Grid item xs={12} sm={4} key={user._id}>
             <Card>
               {user.profile_picture && (
@@ -77,7 +83,7 @@ export default function Profile(props) {
             </Card>
           </Grid>
         </Grid>
-      </Container>
-    </div>
+      </div>
+    </Container>
   );
 }

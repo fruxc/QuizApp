@@ -9,9 +9,8 @@ export default async function SignUpService(data) {
         method: "POST",
         headers: {
           Accept: "application/json",
-          "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: data,
       },
       2 * 10 * 60 * 1000
     );

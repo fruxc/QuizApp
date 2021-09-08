@@ -107,8 +107,10 @@ const Leaderboard = (props) => {
                 <TableCell>{index + 1}</TableCell>
                 {elem.name ? <TableCell>{elem.name}</TableCell> : null}
                 {elem.title ? <TableCell>{elem.title}</TableCell> : null}
-                {elem.Score ? <TableCell>{elem.Score}</TableCell> : null}
-                {elem.totalScore ? (
+                {elem.Score !== undefined ? (
+                  <TableCell>{elem.Score}</TableCell>
+                ) : null}
+                {elem.totalScore !== undefined ? (
                   <TableCell>{elem.totalScore}</TableCell>
                 ) : null}
               </TableRow>
