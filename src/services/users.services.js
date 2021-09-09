@@ -76,7 +76,7 @@ const loginUser = async (email, password) => {
     } else {
       const token = jwt.sign(
         { id: doc._id, email: doc.email },
-        process.env.ACCESS_TOKEN_SECRET
+        process.env.ACCESS_TOKEN_SECRET || 123
       );
       return {
         message: { role: doc.role, name: doc.name, token: token },
