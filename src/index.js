@@ -43,3 +43,5 @@ app.use("/api/v1/quizzes", quizRouter);
 app.use("/api/v1/quizResponse", quizResponseRouter);
 
 app.listen(port, console.log(`listing at port ${port}`));
+
+module.exports=app;

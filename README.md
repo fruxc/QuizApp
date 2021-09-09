@@ -49,6 +49,7 @@ Schema Design
    middleware before you handle it
 8. nodemon - This is a development dependency for providing hot reload for
    the server running on your machine.
+9. chai,mocha,supertest- These are development dependency for unit testing.
 
 ## Setup
 
