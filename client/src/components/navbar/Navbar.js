@@ -80,7 +80,7 @@ const Navbar = ({ user, authState }) => {
               variant="contained"
               color="secondary"
               onClick={() => {
-                window.location.href = "/leaderboard";
+                window.location.href = "/scores";
               }}
             >
               Leaderboard
@@ -134,7 +134,7 @@ const Navbar = ({ user, authState }) => {
                   </Link>
                   <Link
                     to={{
-                      pathname: "/leaderboard",
+                      pathname: "/scores",
                       state: {
                         users: user,
                       },

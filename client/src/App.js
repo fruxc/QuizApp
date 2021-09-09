@@ -57,13 +57,13 @@ const App = () => {
                 <Route exact path="/quiz" component={Quiz} />
                 <Route exact path="/add-quiz" component={CreateQuiz} />
                 <Route exact path="/add-question" component={AddQuestion} />
-                <Route exact path="/leaderboard" component={Leaderboard} />
+                <Route exact path="/scores" component={Leaderboard} />
                 <Route exact path="/profile" component={Profile} />
               </Switch>
             ) : (
               <Switch>
                 <Route exact path="/login" component={Login} />
-                <Route exact path="/leaderboard" component={Leaderboard} />
+                <Route exact path="/scores" component={Leaderboard} />
                 <Route exact path="/signup" component={SignUp} />
               </Switch>
             )}
