@@ -83,10 +83,14 @@ const SignUp = () => {
           toast("User logged in successfully!");
           const token = response.message.token;
           localStorage.setItem("token", token);
-          window.location.href = "/";
+          setTimeout(() => {
+            window.location.href = "/";
+          }, 2000);
         }
       }
-      window.location.href = "/";
+      setTimeout(() => {
+        history.replace("/");
+      }, 2000);
     } catch (err) {
       toast(err.message);
     }

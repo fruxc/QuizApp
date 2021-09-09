@@ -8,6 +8,8 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import CardActions from "@material-ui/core/CardActions";
 import Leaderboard from "../leaderboard/Leaderboard";
+import { submitAttempt } from "../../services/QuizService";
+import { toast } from "react-toastify";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,13 +60,32 @@ const useStyles = makeStyles((theme) => ({
   retry: { backgroundColor: "#24A0ED", color: "white", marginTop: "20px" },
 }));
 
-const Result = ({ score, name, quizName, quizData, user }) => {
+const Result = ({ score, name, quizName, quizData, user, result }) => {
   const classes = useStyles();
+  const [showLeaderboard, setShowLeaderboard] = React.useState(false);
+  React.useEffect(() => {
+    const submitResult = async () => {
+      const data = result;
+      try {
+        const response = await submitAttempt(data);
+        if (response.success) {
+          toast("Response has been submitted");
+        }
+      } catch (err) {
+        toast(err.message);
+      }
+    };
+    submitResult();
+    setTimeout(() => {
+      setShowLeaderboard(true);
+    }, 4000);
+  }, []);
   return (
     <div className={classes.result}>
       <Container component="section" maxWidth="lg" className={classes.root}>
-        <Leaderboard quizId={quizData._id} className={classes.leaderboard} />
-        <br />
+        {showLeaderboard ? (
+          <Leaderboard quizId={quizData._id} className={classes.leaderboard} />
+        ) : null}
         <br />
         <br />
         <Grid
@@ -97,7 +118,11 @@ const Result = ({ score, name, quizName, quizData, user }) => {
                     pathname: "/quiz",
                     state: { quizData: quizData, user: user },
                   }}
-                  onClick={() => window.location.reload()}
+                  onClick={() => {
+                    setTimeout(() => {
+                      window.location.reload();
+                    }, 2000);
+                  }}
                 >
                   <Button className={classes.retry} variant="contained">
                     Retry

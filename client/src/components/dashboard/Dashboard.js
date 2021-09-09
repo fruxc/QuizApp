@@ -124,7 +124,9 @@ export default function Dashboard({ user, authenticated }) {
       response = await deleteQuiz(quizId);
       if (response.success) {
         toast("Quiz deleted successfully!");
-        window.location.href = "/";
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 2000);
       }
     } catch (err) {
       toast(err.message);

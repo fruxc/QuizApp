@@ -72,11 +72,11 @@ export default function AddQuestion(props) {
         }
       } else {
         response = await addQuestion(data);
-        toast("Question added successfully!");
         if (response.success) {
+          toast("Question added successfully!");
           return response.success;
         } else {
-          toast(response.message);
+          return response.success;
         }
       }
     } catch (err) {
@@ -86,15 +86,20 @@ export default function AddQuestion(props) {
   const handleNext = async (e) => {
     e.preventDefault();
     if (addQuestionToQuiz()) {
-      history.replace("/add-question");
+      setTimeout(() => {
+        history.replace("/add-question");
+        window.location.reload();
+      }, 2000);
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (addQuestionToQuiz()) {
-      localStorage.removeItem("quiz_id");
-      window.location.href = "/";
+      setTimeout(() => {
+        localStorage.removeItem("quiz_id");
+        window.location.href = "/";
+      }, 2000);
     }
   };
 

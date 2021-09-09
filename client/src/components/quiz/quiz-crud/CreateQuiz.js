@@ -71,7 +71,9 @@ export default function CreateQuiz(props) {
     try {
       if (quizData._id) {
         localStorage.setItem("quiz_id", quizData._id);
-        history.replace("/add-question");
+        setTimeout(() => {
+          history.replace("/add-question");
+        }, 2000);
       }
     } catch (err) {
       toast(err.message);
@@ -91,13 +93,17 @@ export default function CreateQuiz(props) {
       if (quizData._id) {
         response = await updateQuiz(data, quizData._id);
         if (response.success) {
-          window.location.href = "/";
+          setTimeout(() => {
+            window.location.href = "/";
+          }, 2000);
         }
       } else {
         response = await addQuiz(data);
         if (response.success) {
-          localStorage.setItem("quiz_id", response.message._id);
-          history.replace("/add-question");
+          setTimeout(() => {
+            localStorage.setItem("quiz_id", response.message._id);
+            history.replace("/add-question");
+          }, 2000);
         }
       }
     } catch (err) {
@@ -111,6 +117,9 @@ export default function CreateQuiz(props) {
       response = await deleteQuestion(quizData._id, questionId);
       if (response.success) {
         toast("Question deleted successfully!");
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 2000);
       }
     } catch (err) {
       toast(err.message);

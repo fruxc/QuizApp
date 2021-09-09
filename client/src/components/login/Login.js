@@ -55,8 +55,10 @@ export default function Login() {
       response = await LoginService(data);
       if (response.success && response.message.token) {
         localStorage.setItem("token", response.message.token);
-        window.location.href = "/";
         toast("User has been logged in successfully!");
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 2000);
       }
     } catch (err) {
       toast(err.message);

@@ -52,8 +52,10 @@ const Navbar = ({ user, authState }) => {
     try {
       localStorage.removeItem("token");
       authState();
-      window.location.href = "/";
       toast("User has been logged out successfully!");
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 2000);
     } catch (err) {
       toast(err.message);
     }
@@ -71,7 +73,9 @@ const Navbar = ({ user, authState }) => {
             <Typography
               className={classes.title}
               onClick={() => {
-                window.location.href = "/";
+                setTimeout(() => {
+                  window.location.href = "/";
+                }, 1000);
               }}
             >
               Quiz App
@@ -82,7 +86,9 @@ const Navbar = ({ user, authState }) => {
               variant="contained"
               color="secondary"
               onClick={() => {
-                history.replace("/score");
+                setTimeout(() => {
+                  history.replace("/scores");
+                }, 1000);
               }}
             >
               Leaderboard

@@ -7,8 +7,6 @@ import {
   Typography,
   Grid,
 } from "@material-ui/core";
-import { submitAttempt } from "../../services/QuizService";
-import { toast } from "react-toastify";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -121,20 +119,6 @@ const Quiz = (props) => {
     quizAttempt();
   }, []);
 
-  const submitResult = async () => {
-    const data = {
-      quizId: quizData._id,
-      name: user.name,
-      title: quizData.title,
-      Score: score,
-      userId: user.id,
-    };
-    try {
-      await submitAttempt(data);
-    } catch (err) {
-      toast(err.message);
-    }
-  };
   return (
     <Container component="main" className={classes.window}>
       <CssBaseline />
@@ -161,16 +145,22 @@ const Quiz = (props) => {
           </div>
         </Grid>
       )}
-      {(number === quizLength || (minutes === 0 && seconds === 0)) &&
-        submitResult() && (
-          <Result
-            score={score}
-            quizName={quizData.title}
-            name={user.name}
-            quizData={quizData}
-            user={user}
-          />
-        )}
+      {(number === quizLength || (minutes === 0 && seconds === 0)) && (
+        <Result
+          score={score}
+          quizName={quizData.title}
+          name={user.name}
+          quizData={quizData}
+          user={user}
+          result={{
+            quizId: quizData._id,
+            name: user.name,
+            title: quizData.title,
+            Score: score,
+            userId: user.id,
+          }}
+        />
+      )}
     </Container>
   );
 };
