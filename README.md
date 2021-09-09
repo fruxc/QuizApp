@@ -74,7 +74,7 @@ npm start
 open your browser to <http://localhost:5000>
 
 ## More Information
-1. To know more about Backend refer [QuizApp_backend_README.pdf](https://github.com/Mitali-Ranawat/QuizApp/files/7136058/QuizApp_backend_README.pdf)
+1. To know more about Backend refer [QuizApp_backend_README.docx](https://github.com/Mitali-Ranawat/QuizApp/files/7136238/QuizApp_backend_README.docx)
 2. To know more about API refer [QuizApp-API.pdf](https://github.com/Mitali-Ranawat/QuizApp/files/7136067/QuizApp-API.pdf)
 
 
