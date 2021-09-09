@@ -86,7 +86,7 @@ const SignUp = () => {
           window.location.href = "/";
         }
       }
-      history.push("/");
+      window.location.href = "/";
     } catch (err) {
       toast(err.message);
     }

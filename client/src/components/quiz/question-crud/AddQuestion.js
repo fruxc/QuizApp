@@ -86,7 +86,7 @@ export default function AddQuestion(props) {
   const handleNext = async (e) => {
     e.preventDefault();
     if (addQuestionToQuiz()) {
-      history.push("/add-question");
+      history.replace("/add-question");
     }
   };
 

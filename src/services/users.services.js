@@ -74,7 +74,7 @@ const loginUser = async (email, password) => {
     if (!passwordCheck) {
       return { message: "Incorrect password", success: false };
     } else {
-      const token = jwt.sign({ id: doc._id, email: doc.email }, 123);
+      const token = jwt.sign({ id: doc._id, email: doc.email }, "123");
       return {
         message: { role: doc.role, name: doc.name, token: token },
         success: true,

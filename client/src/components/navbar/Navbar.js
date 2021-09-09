@@ -82,7 +82,7 @@ const Navbar = ({ user, authState }) => {
               variant="contained"
               color="secondary"
               onClick={() => {
-                history.push("/score");
+                history.replace("/score");
               }}
             >
               Leaderboard

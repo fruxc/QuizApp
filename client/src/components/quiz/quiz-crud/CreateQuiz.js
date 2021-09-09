@@ -71,7 +71,7 @@ export default function CreateQuiz(props) {
     try {
       if (quizData._id) {
         localStorage.setItem("quiz_id", quizData._id);
-        history.push("/add-question");
+        history.replace("/add-question");
       }
     } catch (err) {
       toast(err.message);
@@ -97,7 +97,7 @@ export default function CreateQuiz(props) {
         response = await addQuiz(data);
         if (response.success) {
           localStorage.setItem("quiz_id", response.message._id);
-          history.push("/add-question");
+          history.replace("/add-question");
         }
       }
     } catch (err) {
