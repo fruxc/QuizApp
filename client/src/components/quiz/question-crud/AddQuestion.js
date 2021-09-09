@@ -86,9 +86,13 @@ export default function AddQuestion(props) {
   const handleNext = async (e) => {
     e.preventDefault();
     if (addQuestionToQuiz()) {
+      setQuestion("");
+      setOption1("");
+      setOption2("");
+      setOption3("");
+      setCorrectAnswer("");
       setTimeout(() => {
         history.replace("/add-question");
-        window.location.reload();
       }, 2000);
     }
   };
