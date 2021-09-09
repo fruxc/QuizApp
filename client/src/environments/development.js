@@ -1,4 +1,4 @@
-let baseUrl = "http://localhost:5000/";
+let baseUrl = "https://fruxc-quiz.herokuapp.com/";
 
 let updatedConfig = {
   baseUrl: baseUrl,

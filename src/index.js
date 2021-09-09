@@ -42,7 +42,4 @@ app.use("/api/v1/user", userRouter);
 app.use("/api/v1/quizzes", quizRouter);
 app.use("/api/v1/quizResponse", quizResponseRouter);
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
-});
 app.listen(port, console.log(`listing at port ${port}`));
