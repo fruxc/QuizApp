@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Login from "./components/login/Login";
-import SignUp from "./components/signup/SignUp";
+import SignUp from "./components/signup/signup";
 import Dashboard from "./components/dashboard/Dashboard";
 import Navbar from "./components/navbar/Navbar";
 import Quiz from "./components/quiz/Quiz";
