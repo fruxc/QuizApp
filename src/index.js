@@ -14,7 +14,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(morgan("tiny"));
-const uri = process.env.ATLAS_URI;
+const uri =
+  process.env.ATLAS_URI ||
+  "mongodb+srv://test:test@sushant.mqjbv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -32,5 +34,8 @@ const quizResponseRouter = require("./routes/v1/quizResponse");
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/quizzes", quizRouter);
 app.use("/api/v1/quizResponse", quizResponseRouter);
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
 
 app.listen(port, console.log(`listing at port ${port}`));
