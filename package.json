@@ -11,7 +11,7 @@
     "install-client": "cd client && npm install",
     "client": "cd client && npm start",
     "start-nodemon": "nodemon src/index.js",
-    "heroku-postbuild": "npm run install-client && npm run build"
+    "heroku-postbuild": "npm run install-client && npm run build && npm start"
   },
   "author": "",
   "license": "ISC",
