@@ -29,7 +29,8 @@
     "nodemon": "^2.0.12"
   },
   "engines": {
-    "node": "16.x"
+    "node": "16.x",
+    "npm": "7.x"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"
