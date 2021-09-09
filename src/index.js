@@ -34,7 +34,7 @@ const quizResponseRouter = require("./routes/v1/quizResponse");
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/quizzes", quizRouter);
 app.use("/api/v1/quizResponse", quizResponseRouter);
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV !== "production") {
   app.use(express.static("client/build"));
   const path = require("path");
   app.get("*", (req, res) => {
