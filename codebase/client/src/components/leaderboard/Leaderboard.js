@@ -46,14 +46,17 @@ const Leaderboard = (props) => {
   }
 
   useEffect(() => {
-    if (quizId) {
-      getLeaderboardByQuizId();
-    } else if (user) {
+    if (user) {
       getLeaderboardByUserId();
     } else {
       getLeaderboardForAll();
     }
   }, [props]);
+  useEffect(() => {
+    if (quizId) {
+      getLeaderboardByQuizId();
+    }
+  });
   const getLeaderboardByQuizId = async () => {
     let response;
     try {
