@@ -1,6 +1,6 @@
 # QuizApp
 
-## **WORKFLOW**
+## **Workflow**
 
 ![image](https://user-images.githubusercontent.com/43498814/132635233-de068093-f4d4-4de7-bf21-430f6c37efef.png)
 
@@ -73,6 +73,9 @@ npm start
 ```
 open your browser to <http://localhost:5000>
 
-**To know more about APIs refer** <[QuizApp_readme.pdf](https://github.com/Mitali-Ranawat/QuizApp/files/7135941/QuizApp_readme.pdf)>
+## More Information
+1. To know more about Backend refer [QuizApp_backend_README.pdf](https://github.com/Mitali-Ranawat/QuizApp/files/7136058/QuizApp_backend_README.pdf)
+2. To know more about API refer [QuizApp-API.pdf](https://github.com/Mitali-Ranawat/QuizApp/files/7136067/QuizApp-API.pdf)
+
 
 
