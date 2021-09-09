@@ -34,6 +34,13 @@ const quizResponseRouter = require("./routes/v1/quizResponse");
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/quizzes", quizRouter);
 app.use("/api/v1/quizResponse", quizResponseRouter);
+
+app.use((req, res, next) => {
+  const error = new Error("Not found");
+  error.status = 404;
+  next(error);
+});
+
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
   app.use(express.static(path.join(__dirname, "client/build")));
