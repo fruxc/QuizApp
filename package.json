@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "env-cmd -f ./config/dev.env nodemon src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha || true",
     "build": "cd client && npm run build",
     "install-client": "cd client && npm install",
     "client": "cd client && npm start",
@@ -25,14 +25,16 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.4",
     "morgan": "^1.10.0",
-    "multer": "^1.4.3",
-    "nodemon": "^2.0.12"
+    "multer": "^1.4.3"
   },
   "engines": {
     "node": "16.x",
     "npm": "7.21.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.12"
+    "chai": "^4.3.4",
+    "mocha": "^9.1.1",
+    "nodemon": "^2.0.12",
+    "supertest": "^6.1.6"
   }
 }
