@@ -9,6 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { addQuestion, updateQuestion } from "../../../services/QuizService";
 import { toast } from "react-toastify";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -32,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AddQuestion(props) {
   const classes = useStyles();
+  const history = useHistory();
   let questionData = {
     question: "",
     answers: [],
@@ -84,7 +86,7 @@ export default function AddQuestion(props) {
   const handleNext = async (e) => {
     e.preventDefault();
     if (addQuestionToQuiz()) {
-      window.location.href = "/add-question";
+      history.push("/add-question");
     }
   };
 

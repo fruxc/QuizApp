@@ -12,6 +12,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -37,6 +38,7 @@ const Navbar = ({ user, authState }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const history = useHistory();
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -80,7 +82,7 @@ const Navbar = ({ user, authState }) => {
               variant="contained"
               color="secondary"
               onClick={() => {
-                window.location.href = "/scores";
+                history.push("/score");
               }}
             >
               Leaderboard

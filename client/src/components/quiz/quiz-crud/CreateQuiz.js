@@ -20,6 +20,7 @@ import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -56,6 +57,7 @@ export default function CreateQuiz(props) {
       seconds: "",
     },
   };
+  const history = useHistory();
   if (props.location.state !== undefined) {
     quizData = props.location.state.quizData;
   }
@@ -69,7 +71,7 @@ export default function CreateQuiz(props) {
     try {
       if (quizData._id) {
         localStorage.setItem("quiz_id", quizData._id);
-        window.location.href = "/add-question";
+        history.push("/add-question");
       }
     } catch (err) {
       toast(err.message);
@@ -95,7 +97,7 @@ export default function CreateQuiz(props) {
         response = await addQuiz(data);
         if (response.success) {
           localStorage.setItem("quiz_id", response.message._id);
-          window.location.href = "/add-question";
+          history.push("/add-question");
         }
       }
     } catch (err) {
