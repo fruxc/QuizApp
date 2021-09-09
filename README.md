@@ -58,40 +58,21 @@ Clone git repo:
 git clone https://github.com/fruxc/QuizApp.git
 ```
 
-First start backend server then frontend server
-
-To start backend dev server
+To start application
 
 ```bash
-cd codebase
+npm run heroku-postbuild
 ```
 
 ```bash
-cd server
+npm install
 ```
 
 ```bash
-npm run dev
+npm start
 ```
+open your browser to <http://localhost:5000>
 
-Your backend will be running on <http://localhost:5000>
+**To know more about APIs refer** <[QuizApp_readme.pdf](https://github.com/Mitali-Ranawat/QuizApp/files/7135941/QuizApp_readme.pdf)>
 
-To start frontend dev server
 
-```bash
-cd codebase
-```
-
-```bash
-cd frontend
-```
-
-```bash
-npm i
-```
-
-```bash
-ng serve
-```
-
-open your browser to <http://localhost:3000>
